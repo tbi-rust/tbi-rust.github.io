@@ -16,7 +16,6 @@
   --tor-grey: #f8f9fa;
   --tor-dark-grey: #333a41;
   --tor-white: #ffffff;
-
   /* This app's own palette (src/main.rs :: mod palette) */
   --app-purple-deep: #420c5d;
   --app-purple-bright: #951ad1;
@@ -26,6 +25,9 @@
   --app-error: #c82d3c;
   --app-border: #e8e2f0;
   --app-text-secondary: #6c6476;
+  --app-info-blue: #0284c7;
+  --app-info-bg: #f0f9ff;         
+
 
   /* Surfaces */
   --bg: var(--tor-grey);
@@ -243,3 +245,25 @@ hr.rule {
   border-top: 1px solid var(--app-border);
   margin: 2.5rem 0;
 }
+
+.callout--info {
+  background: var(--app-info-bg);
+  border-left: 4px solid var(--app-info-blue);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.callout--info a {
+  color: var(--app-info-blue);
+  text-decoration: underline;
+}
+
+.callout--info h4 {
+  color: #0369a1; 
+  margin: 0 0 4px 0;
+}
+
