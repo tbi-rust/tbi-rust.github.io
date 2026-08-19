@@ -5,7 +5,7 @@
 /* style guide (styleguide.torproject.org/visuals): Purple, Dark       */
 /* Purple, Green, and Grey. The "app" purples are the exact gradient   */
 /* stops already shipped in this app's own icon (src/assets/           */
-/* tor_logo_tbb.svg) and palette module in theme.rs  reused here       */
+/* tor_logo_tbb.svg) and palette module in theme.rs — reused here       */
 /* rather than re-invented, so the site and the app read as one thing. */
 /* ------------------------------------------------------------------ */
 :root {
@@ -26,7 +26,8 @@
   --app-border: #e8e2f0;
   --app-text-secondary: #6c6476;
   --app-info-blue: #0284c7;
-  --app-info-bg: #f0f9ff;
+  --app-info-bg: #f0f9ff;         
+
 
   /* Surfaces */
   --bg: var(--tor-grey);
@@ -41,9 +42,9 @@
 
   /* Rhythm */
   --radius-sm: 6px;
-  --radius-md: 12px;
+  --radius-md: 10px;
   --radius-lg: 16px;
-  --shadow-card: 0 2px 4px rgba(51, 58, 65, 0.08), 0 16px 40px -16px rgba(66, 12, 93, 0.22);
+  --shadow-card: 0 1px 2px rgba(51, 58, 65, 0.06), 0 12px 32px -16px rgba(66, 12, 93, 0.18);
   --container: 1120px;
 }
 
@@ -63,7 +64,7 @@ body {
   font-family: var(--font-sans);
   color: var(--text);
   background: var(--bg);
-  line-height: 1.6;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -89,17 +90,16 @@ h1, h2, h3, h4 {
   letter-spacing: -0.01em;
 }
 
-h1 { font-size: clamp(2.4rem, 3.5vw + 1.4rem, 4rem); font-weight: 700; letter-spacing: -0.015em; }
-h2 { font-size: clamp(1.8rem, 1.6vw + 1.2rem, 2.6rem); font-weight: 700; letter-spacing: -0.01em; }
-h3 { font-size: 1.35rem; font-weight: 600; }
-h4 { font-size: 1.08rem; font-weight: 600; }
+h1 { font-size: clamp(2.2rem, 3vw + 1.4rem, 3.6rem); font-weight: 700; }
+h2 { font-size: clamp(1.6rem, 1.4vw + 1.2rem, 2.35rem); font-weight: 700; }
+h3 { font-size: 1.3rem; font-weight: 600; }
+h4 { font-size: 1.05rem; font-weight: 600; }
 
 p { margin: 0 0 1em; color: var(--text); }
 p.lede {
   font-family: var(--font-serif);
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: var(--text-muted);
-  line-height: 1.6;
 }
 
 .container {
@@ -112,17 +112,12 @@ p.lede {
 .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.82rem;
+  gap: 8px;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--tor-purple);
-}
-
-.eyebrow :global(svg) {
-  width: 1.3em;
-  height: 1.3em;
 }
 
 .section {
@@ -139,11 +134,11 @@ p.lede {
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   font-family: var(--font-sans);
   font-weight: 600;
-  font-size: 1rem;
-  padding: 14px 28px;
+  font-size: 0.98rem;
+  padding: 12px 22px;
   border-radius: var(--radius-md);
   border: 1px solid transparent;
   cursor: pointer;
@@ -155,12 +150,9 @@ p.lede {
 .btn--primary {
   background: var(--app-purple-bright);
   color: #fff;
-  box-shadow: 0 12px 32px -12px rgba(149, 26, 209, 0.65);
+  box-shadow: 0 10px 24px -10px rgba(149, 26, 209, 0.55);
 }
-.btn--primary:hover { 
-  background: var(--app-purple-deep);
-  box-shadow: 0 16px 40px -12px rgba(149, 26, 209, 0.75);
-}
+.btn--primary:hover { background: var(--app-purple-deep); }
 
 .btn--ghost {
   background: transparent;
@@ -177,8 +169,8 @@ p.lede {
 .btn--onlight:hover { background: rgba(255,255,255,0.16); }
 
 .icon {
-  width: 1.3em;
-  height: 1.3em;
+  width: 1em;
+  height: 1em;
   stroke: currentColor;
   fill: none;
   stroke-width: 2;
@@ -195,7 +187,7 @@ p.lede {
 
 .grid {
   display: grid;
-  gap: 24px;
+  gap: 20px;
 }
 .grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -225,15 +217,15 @@ pre {
   padding: 16px 18px;
   border-radius: var(--radius-md);
   overflow-x: auto;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   line-height: 1.6;
 }
 code:not(pre code) {
   background: var(--app-purple-soft);
   color: var(--app-purple-deep);
-  padding: 0.15em 0.45em;
-  border-radius: 6px;
-  font-size: 0.92em;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
 }
 
 .skip-link {

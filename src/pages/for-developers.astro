@@ -4,52 +4,142 @@ import Icon from "../components/Icon.astro";
 import { base } from "../lib/base";
 ---
 
-<Layout title="For Developers" description="Technical approach behind Tor Browser Installer.">
+<Layout title="For Developers" description="Why Tor Browser Installer matters for the Tor Project and the broader ecosystem.">
   <section class="section section--surface">
     <div class="container">
-      <span class="eyebrow"><Icon name="terminal" size={14} /> For Developers</span>
-      <h1>Cross-platform Tor Browser installation, done right.</h1>
+      <span class="eyebrow"><Icon name="terminal" size={16} /> For Developers</span>
+      <h1>Why this project matters for Tor.</h1>
       
-      <p class="lede" style="max-width: 68ch;">
+      <p class="lede" style="max-width: 70ch;">
         On Linux, <a href="https://flathub.org/apps/org.torproject.torbrowser-launcher">Tor Browser Launcher</a>
-        does this as a Flatpak: fetch, verify, install, launch. It works, but it's Linux-only 
+        handles this job as a Flatpak: fetch, verify, install, launch. It works, but it's Linux-only 
         and runs Python + GTK in a sandbox. This project does the same thing as a single 
-        native Rust binary that compiles for macOS, Windows, and Linux.
+        native Rust binary that compiles for macOS, Windows, and Linux. 
+        <strong>This is what a proper cross-platform Tor Browser installer should look like.</strong>
       </p>
 
-      <div class="grid grid--3 dev-grid" style="margin-top: 40px;">
-        <div class="card dev-card">
+      <h2 style="margin-top: 48px;">The problem with the current approach</h2>
+      <p>
+        Right now, Tor Browser installation is inconsistent across platforms:
+      </p>
+      <ul class="problem-list">
+        <li>
+          <strong>macOS:</strong> Download a DMG, drag to Applications. No verification, no proper install.
+        </li>
+        <li>
+          <strong>Windows:</strong> Download an EXE installer. It works, but it's a separate codebase from Linux.
+        </li>
+        <li>
+          <strong>Linux:</strong> Download a tarball, extract it. Or use Tor Browser Launcher (Flatpak only).
+        </li>
+      </ul>
+      <p>
+        Each platform has a different experience. None of them verify by default. 
+        This creates a fragmented user experience and makes it harder for users to 
+        trust what they're installing.
+      </p>
+
+      <h2 style="margin-top: 48px;">Why this approach is better</h2>
+      
+      <div class="grid grid--3 benefits-grid" style="margin-top: 32px;">
+        <div class="card benefit-card">
+          <div class="benefit-icon"><Icon name="shield" size={28} /></div>
+          <h3>Verification is not optional</h3>
+          <p>
+            Every download is verified with SHA-256 <em>and</em> PGP signature against the 
+            Tor Browser Developers key before a single file is written to disk. This isn't 
+            an afterthought or a toggle &mdash; it's the core of how the tool works.
+          </p>
+        </div>
+        <div class="card benefit-card">
+          <div class="benefit-icon"><Icon name="terminal" size={28} /></div>
           <h3>One codebase, all platforms</h3>
           <p>
-            Everything is in <code>install.rs</code>: fetch release JSON, download the bundle, 
-            verify SHA-256, check PGP signature against the Tor Browser Developers key, 
-            then install using platform-native methods. Platform differences use 
-            <code>cfg(target_os = ...)</code>.
+            The entire pipeline lives in <code>install.rs</code>. Platform differences are 
+            handled with <code>cfg(target_os = ...)</code>. Same source, same verification logic, 
+            same security guarantees on every platform.
           </p>
         </div>
-        <div class="card dev-card">
+        <div class="card benefit-card">
+          <div class="benefit-icon"><Icon name="lock" size={28} /></div>
           <h3>No sandbox, no runtime</h3>
           <p>
-            No Flatpak runtime or permission model. On macOS: mount DMG, copy app. 
-            On Linux: extract tar.xz. On Windows: run NSIS installer silently. 
-            Simple, direct, predictable.
-          </p>
-        </div>
-        <div class="card dev-card">
-          <h3>Full transparency</h3>
-          <p>
-            Every command the app runs is logged to a visible panel in the UI as it 
-            happens. Same principle as Tor Browser Launcher, now on every platform.
+            No Flatpak runtime or permission model to work around. On macOS: mount DMG, 
+            copy app. On Linux: extract tar.xz. On Windows: run NSIS installer. Simple, 
+            direct, predictable, and auditable.
           </p>
         </div>
       </div>
 
+      <h2 style="margin-top: 48px;">For the Tor Project</h2>
+      <p>
+        If the Tor Project wanted to adopt a proper cross-platform installer, this is 
+        the architecture they should use. Here's why:
+      </p>
+      
+      <div class="why-matters">
+        <div class="why-item">
+          <h3><Icon name="check" size={20} /> It's already written</h3>
+          <p>
+            The hard work is done. Release JSON fetching, download with progress, SHA-256 
+            verification, PGP signature verification, platform-native installation. All of it 
+            exists and works today.
+          </p>
+        </div>
+        <div class="why-item">
+          <h3><Icon name="check" size={20} /> It's Rust, not Python</h3>
+          <p>
+            Memory-safe, compiled to native code, no runtime dependencies. This means 
+            faster execution, smaller attack surface, and easier distribution. The same 
+            binary that runs on Linux can be audited and trusted.
+          </p>
+        </div>
+        <div class="why-item">
+          <h3><Icon name="check" size={20} /> It's cross-platform by design</h3>
+          <p>
+            Not Linux-only like Tor Browser Launcher. Not macOS-only. Not Windows-only. 
+            One codebase that compiles for all three major desktop platforms, with the 
+            same verification pipeline on each.
+          </p>
+        </div>
+        <div class="why-item">
+          <h3><Icon name="check" size={20} /> It can be ported anywhere Rust runs</h3>
+          <p>
+            Rust compiles to native code on virtually any platform. BSD? Sure, if Tor 
+            Browser has BSD ports. ARM? Yes. The code is already structured to handle 
+            platform differences cleanly.
+          </p>
+        </div>
+        <div class="why-item">
+          <h3><Icon name="check" size={20} /> Users already expect this</h3>
+          <p>
+            Package managers verify downloads. App stores verify downloads. Users expect 
+            installers to verify downloads. This tool does what users already expect from 
+            any serious software installation.
+          </p>
+        </div>
+      </div>
+
+      <h2 style="margin-top: 48px;">For other developers</h2>
+      <p>
+        This isn't just useful for Tor. The same pattern &mdash; fetch, verify, install &mdash; 
+        applies to any software distribution. If you're building a tool that needs to 
+        download and verify binaries, this is a reference implementation.
+      </p>
+      <p>
+        The code is clean, well-structured, and intentionally simple. No magic, no 
+        hidden behavior, no shortcuts. It does one thing, does it properly, and logs 
+        everything so you can see exactly what happened.
+      </p>
+
       <div class="dev-note">
-        <Icon name="info" size={18} />
+        <Icon name="info" size={20} />
         <div>
           <p>
             <strong>Note:</strong> This is an independent project, not a Tor Project product. 
-            See the <a href={`${base}security`}>security page</a> for full verification details.
+            It hasn't been reviewed or endorsed by them. But it's here, it works, and it's 
+            ready to be adopted or adapted. See the 
+            <a href={`${base}security`}>security page</a> for full verification details.
           </p>
         </div>
       </div>
@@ -58,23 +148,83 @@ import { base } from "../lib/base";
 </Layout>
 
 <style>
-  .dev-grid {
+  .problem-list {
+    display: grid;
+    gap: 8px;
+    padding-left: 22px;
+    margin: 16px 0 24px;
+  }
+  .problem-list li {
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .problem-list strong {
+    color: var(--app-purple-deep);
+  }
+
+  .benefits-grid {
     margin-top: 32px;
   }
-  .dev-card {
-    padding: 24px;
+  .benefit-card {
+    padding: 28px;
   }
-  .dev-card h3 {
+  .benefit-icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: var(--app-purple-soft);
+    color: var(--app-purple-bright);
+    margin-bottom: 16px;
+  }
+  .benefit-card h3 {
     color: var(--app-purple-deep);
     margin-bottom: 10px;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
   }
-  .dev-card p {
+  .benefit-card p {
     color: var(--text-muted);
-    font-size: 0.95rem;
+    font-size: 0.98rem;
     margin: 0;
-    line-height: 1.6;
+    line-height: 1.65;
   }
+  .benefit-card em {
+    color: var(--app-purple-deep);
+    font-style: italic;
+  }
+
+  .why-matters {
+    display: grid;
+    gap: 20px;
+    margin-top: 24px;
+  }
+  .why-item {
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--app-border);
+    border-radius: var(--radius-md);
+  }
+  .why-item h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--app-purple-deep);
+    font-size: 1.05rem;
+    margin: 0 0 10px 0;
+  }
+  .why-item h3 :global(svg) {
+    width: 1.2em;
+    height: 1.2em;
+    color: var(--app-purple-bright);
+  }
+  .why-item p {
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.65;
+  }
+
   .dev-note {
     display: flex;
     gap: 14px;

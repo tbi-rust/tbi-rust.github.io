@@ -1,0 +1,205 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import { base } from "../lib/base";
+---
+
+<Layout title="Changelog" description="Release history and what's new in Tor Browser Installer.">
+  <section class="section">
+    <div class="container narrow">
+      <span class="eyebrow"><Icon name="clock" size={16} /> Changelog</span>
+      <h1>What's new</h1>
+      <p class="lede">
+        Release history for Tor Browser Installer. Latest releases at the top.
+      </p>
+
+      <div class="changelog">
+        
+        <div class="release">
+          <div class="release-header">
+            <span class="release-version">v0.07</span>
+            <span class="release-date">Current</span>
+          </div>
+          <div class="release-body">
+            <h3>Initial public beta</h3>
+            <ul class="changes">
+              <li class="change-add"><Icon name="plus" size={16} /> Complete cross-platform installer with verification</li>
+              <li class="change-add"><Icon name="plus" size={16} /> SHA-256 checksum verification</li>
+              <li class="change-add"><Icon name="plus" size={16} /> PGP signature verification against Tor Browser Developers key</li>
+              <li class="change-add"><Icon name="plus" size={16} /> Platform-native installation (DMG on macOS, tar.xz on Linux, NSIS on Windows)</li>
+              <li class="change-add"><Icon name="plus" size={16} /> User and system-wide install options</li>
+              <li class="change-add"><Icon name="plus" size={16} /> Dark and light mode support</li>
+              <li class="change-add"><Icon name="plus" size={16} /> Full command logging for transparency</li>
+              <li class="change-add"><Icon name="plus" size={16} /> Progress tracking for downloads</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="release">
+          <div class="release-header">
+            <span class="release-version">v0.06</span>
+            <span class="release-date">Pre-release</span>
+          </div>
+          <div class="release-body">
+            <h3>Verification improvements</h3>
+            <ul class="changes">
+              <li class="change-fix"><Icon name="check" size={16} /> Fixed PGP signature verification to use correct key fetching</li>
+              <li class="change-add"><Icon name="plus" size={16} /> Added fallback signature URL construction</li>
+              <li class="change-improve"><Icon name="refresh" size={16} /> Improved error messages for verification failures</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="release">
+          <div class="release-header">
+            <span class="release-version">v0.05</span>
+            <span class="release-date">Pre-release</span>
+          </div>
+          <div class="release-body">
+            <h3>Platform support</h3>
+            <ul class="changes">
+              <li class="change-add"><Icon name="plus" size={16} /> Added Windows support via NSIS installer</li>
+              <li class="change-add"><Icon name="plus" size={16} /> Added Linux support via tar.xz extraction</li>
+              <li class="change-improve"><Icon name="refresh" size={16} /> Refactored platform-specific code into separate module</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="release">
+          <div class="release-header">
+            <span class="release-version">v0.01-0.04</span>
+            <span class="release-date">Early prototypes</span>
+          </div>
+          <div class="release-body">
+            <h3>Initial development</h3>
+            <ul class="changes">
+              <li class="change-add"><Icon name="plus" size={16} /> macOS-only proof of concept</li>
+              <li class="change-add"><Icon name="plus" size={16} /> Basic DMG mounting and app copying</li>
+              <li class="change-add"><Icon name="plus" size={16} /> Initial egui interface</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="changelog-note">
+        <Icon name="info" size={18} />
+        <p>
+          For the latest updates and detailed commit history, see the 
+          <a href="https://github.com/reality-prod/tbi-rust">GitHub repository</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .narrow { max-width: 760px; }
+  
+  .changelog {
+    display: grid;
+    gap: 32px;
+    margin-top: 32px;
+  }
+  
+  .release {
+    border-left: 4px solid var(--app-purple-bright);
+    padding-left: 20px;
+  }
+  
+  .release-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+  
+  .release-version {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--app-purple-deep);
+  }
+  
+  .release-date {
+    font-size: 0.85rem;
+    color: var(--app-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .release-body h3 {
+    color: var(--app-purple-deep);
+    font-size: 1.15rem;
+    margin: 0 0 12px 0;
+  }
+  
+  .changes {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 8px;
+  }
+  
+  .change-add {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--app-success);
+    padding: 8px 12px;
+    background: rgba(24, 163, 90, 0.08);
+    border-radius: 8px;
+  }
+  
+  .change-fix {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--app-error);
+    padding: 8px 12px;
+    background: rgba(200, 45, 60, 0.08);
+    border-radius: 8px;
+  }
+  
+  .change-improve {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--tor-purple);
+    padding: 8px 12px;
+    background: rgba(149, 26, 209, 0.08);
+    border-radius: 8px;
+  }
+  
+  .changes li :global(svg) {
+    flex: none;
+    margin-top: 2px;
+  }
+  
+  .changelog-note {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-top: 40px;
+    padding: 20px;
+    background: var(--app-purple-soft);
+    border: 1px solid var(--app-border);
+    border-radius: var(--radius-md);
+  }
+  
+  .changelog-note :global(svg) {
+    flex: none;
+    margin-top: 2px;
+  }
+  
+  .changelog-note p {
+    margin: 0;
+    color: var(--app-purple-deep);
+    line-height: 1.6;
+  }
+  
+  .changelog-note a {
+    color: var(--app-purple-deep);
+    text-decoration: underline;
+  }
+</style>
