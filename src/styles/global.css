@@ -5,7 +5,7 @@
 /* style guide (styleguide.torproject.org/visuals): Purple, Dark       */
 /* Purple, Green, and Grey. The "app" purples are the exact gradient   */
 /* stops already shipped in this app's own icon (src/assets/           */
-/* tor_logo_tbb.svg) and palette module in main.rs — reused here       */
+/* tor_logo_tbb.svg) and palette module in theme.rs — reused here       */
 /* rather than re-invented, so the site and the app read as one thing. */
 /* ------------------------------------------------------------------ */
 :root {
@@ -16,7 +16,7 @@
   --tor-grey: #f8f9fa;
   --tor-dark-grey: #333a41;
   --tor-white: #ffffff;
-  /* This app's own palette (src/main.rs :: mod palette) */
+  /* This app's own palette (src/theme.rs) */
   --app-purple-deep: #420c5d;
   --app-purple-bright: #951ad1;
   --app-purple-soft: #f2e4ff;
