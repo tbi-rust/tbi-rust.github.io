@@ -1,0 +1,139 @@
+---
+import Icon from "./Icon.astro";
+import { base } from "../lib/base";
+---
+
+<div class="app-mock" aria-hidden="true">
+  <div class="app-mock__titlebar">
+    <span class="dot dot--red"></span>
+    <span class="dot dot--yellow"></span>
+    <span class="dot dot--green"></span>
+    <span class="app-mock__title">Tor Browser Installer BETA</span>
+  </div>
+
+  <div class="app-mock__body">
+    <div class="app-mock__header">
+      <img src={`${base}assets/tor_logo_tbb.svg`} width="44" height="44" alt="" />
+      <div>
+        <div class="app-mock__wordmark">Tor Browser <strong>Installer</strong></div>
+        <div class="app-mock__beta"><Icon name="beta" size={11} /> BETA</div>
+      </div>
+    </div>
+
+    <div class="app-mock__card">
+      <h3 class="app-mock__card-title">Confirm Download</h3>
+      <p class="app-mock__card-sub">Please verify this information before continuing:</p>
+
+      <div class="app-mock__field">
+        <span class="app-mock__label">Version</span>
+        <div class="app-mock__value mono">13.5.6</div>
+      </div>
+      <div class="app-mock__field">
+        <span class="app-mock__label">Binary URL</span>
+        <div class="app-mock__value mono">…/tor-browser-macos-13.5.6.dmg</div>
+      </div>
+      <div class="app-mock__field">
+        <span class="app-mock__label">SHA-256</span>
+        <div class="app-mock__value mono">8f2a…c19e</div>
+      </div>
+      <div class="app-mock__field">
+        <span class="app-mock__label">Signature URL</span>
+        <div class="app-mock__value mono">…/tor-browser-macos-13.5.6.dmg.asc</div>
+      </div>
+
+      <div class="app-mock__btn app-mock__btn--primary">
+        <Icon name="check" size={16} /> Continue
+      </div>
+      <div class="app-mock__btn app-mock__btn--ghost">Cancel</div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .app-mock {
+    background: var(--tor-white);
+    border-radius: 18px;
+    border: 1px solid var(--app-border);
+    box-shadow: 0 30px 70px -30px rgba(66, 12, 93, 0.45);
+    overflow: hidden;
+    max-width: 420px;
+    width: 100%;
+  }
+  .app-mock__titlebar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 14px;
+    background: #f1edf6;
+    border-bottom: 1px solid var(--app-border);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot--red { background: #ff5f57; }
+  .dot--yellow { background: #febc2e; }
+  .dot--green { background: #28c840; }
+  .app-mock__title {
+    margin-left: 8px;
+    font-size: 0.72rem;
+    color: var(--app-text-secondary);
+    font-weight: 600;
+  }
+  .app-mock__body { padding: 22px 22px 26px; background: var(--tor-grey); }
+  .app-mock__header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .app-mock__wordmark { font-weight: 700; color: var(--app-purple-deep); font-size: 1.05rem; }
+  .app-mock__wordmark strong { color: var(--app-purple-bright); }
+  .app-mock__beta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--app-gold);
+  }
+  .app-mock__card {
+    background: #fff;
+    border: 1px solid var(--app-border);
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .app-mock__card-title { margin: 0 0 6px; font-size: 1rem; color: var(--app-purple-deep); }
+  .app-mock__card-sub { font-size: 0.82rem; color: var(--app-text-secondary); margin-bottom: 16px; }
+  .app-mock__field { margin-bottom: 10px; }
+  .app-mock__label {
+    display: block;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--app-text-secondary);
+    margin-bottom: 3px;
+  }
+  .app-mock__value {
+    background: var(--tor-grey);
+    border: 1px solid var(--app-border);
+    border-radius: 6px;
+    padding: 7px 9px;
+    font-size: 0.72rem;
+    color: var(--app-purple-deep);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .app-mock__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    border-radius: 9px;
+    font-weight: 600;
+    font-size: 0.86rem;
+    margin-top: 12px;
+  }
+  .app-mock__btn--primary { background: var(--app-purple-bright); color: #fff; }
+  .app-mock__btn--ghost {
+    background: transparent;
+    border: 1px solid var(--app-border);
+    color: var(--app-text-secondary);
+  }
+</style>

@@ -1,0 +1,122 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+---
+
+<Layout title="Security" description="How Tor Browser Installer verifies downloads: SHA-256, PGP signature verification, and what it deliberately does not hide about its own limits.">
+  <section class="section">
+    <div class="container narrow">
+      <span class="eyebrow"><Icon name="shield" size={14} /> Security</span>
+      <h1>What this installer checks, and what it can't hide from you.</h1>
+      <p class="lede">
+        Downloading and running Tor Browser is security-sensitive. This page is the
+        same disclosure the app makes to itself, in <code>main.rs</code>, written out
+        in full rather than summarized away.
+      </p>
+
+      <div class="callout callout--warn">
+        <Icon name="cross" size={20} />
+        <div>
+          <h4>This is not a Tor connection.</h4>
+          <p>
+            The installer downloads Tor Browser over <strong>plain HTTPS</strong>, not
+            over the Tor network. A network observer — your ISP, a coffee-shop
+            Wi-Fi operator, anyone between you and the Tor Project's servers — can see
+            that this machine fetched Tor Browser, even though they can't see what
+            you do inside it afterward.
+          </p>
+        </div>
+      </div>
+
+      <h2 style="margin-top: 48px;">Verification process</h2>
+      <ol class="verify-list">
+        <li>
+          <strong>Checksum verification.</strong> The downloaded file's SHA-256 hash is
+          computed locally and compared against the value reported by the Tor
+          Project's own release JSON. A mismatch stops the install immediately — the
+          file is discarded.
+        </li>
+        <li>
+          <strong>PGP signature verification.</strong> The detached <code>.asc</code>
+          signature is downloaded alongside the release, and verified against the
+          Tor Browser Developers signing key using <code>sequoia-openpgp</code>. This
+          key is fetched at verification time from <code>keys.openpgp.org</code>.
+        </li>
+      </ol>
+
+      <div class="fingerprint-card">
+        <span class="eyebrow">Tor Browser Developers key fingerprint</span>
+        <p class="mono fingerprint">EF6E 286D DA85 EA2A 4BA7&nbsp;DE68 4E2C 6E87 9329 8290</p>
+        <p style="margin:0; font-size:0.86rem; color:var(--app-text-secondary);">
+          Compare this against the fingerprint published on
+          <a href="https://support.torproject.org/tbb/how-to-verify-signature/">the Tor Project's own signature-verification guide</a>
+          before trusting any build of this tool that claims to check against it.
+        </p>
+      </div>
+
+      <p style="margin-top:16px;">
+        All verification happens <strong>before</strong> installation. If either check
+        fails, nothing is copied, extracted, or installed, and no partial state is
+        left behind beyond the (already-rejected) temp download, which is cleaned up.
+      </p>
+
+      <h2 style="margin-top:48px;">Elevated installs</h2>
+      <p>
+        A system-wide (“all users”) install writes into a location regular accounts
+        don't own — <code>/Applications</code> is already system-owned on macOS,
+        and <code>/opt</code> is on Linux. Rather than discover a permission failure
+        partway through copying files, the app asks for a password up front and runs
+        the whole install as one authenticated <code>sudo -s</code> command. On
+        macOS, a per-user install additionally has a fallback: it tries a plain copy
+        first, and only escalates to the native Touch ID / password prompt if that
+        copy is actually refused.
+      </p>
+      <p>The password itself is kept only in memory, sent once to the background
+        worker thread when the install starts, and is never written to the
+        “View commands” log or anywhere on disk.</p>
+
+      <h2 style="margin-top:48px;">Known limitation this project is upfront about</h2>
+      <p>
+        Earlier prototypes of this codebase shipped checksum-only verification
+        without the PGP step. If you're auditing a build, confirm the binary you're
+        running actually performs signature verification (search for
+        <code>verify_pgp_signature</code> in <code>main.rs</code>) rather than
+        assuming from this page alone — this site describes the current source,
+        not whatever binary happens to be on your disk.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .narrow { max-width: 720px; }
+  .callout {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 18px 20px;
+    border-radius: var(--radius-md);
+    margin-top: 28px;
+  }
+  .callout--warn {
+    background: rgba(200, 45, 60, 0.06);
+    border: 1px solid rgba(200, 45, 60, 0.25);
+    color: var(--app-error);
+  }
+  .callout--warn h4 { margin: 0 0 4px; color: var(--app-error); }
+  .callout--warn p { margin: 0; color: #7a2129; font-size: 0.94rem; }
+  .verify-list { display: grid; gap: 14px; padding-left: 22px; }
+  .fingerprint-card {
+    margin-top: 28px;
+    background: var(--app-purple-soft);
+    border: 1px solid var(--app-border);
+    border-radius: var(--radius-md);
+    padding: 20px 22px;
+  }
+  .fingerprint {
+    font-size: 0.98rem;
+    color: var(--app-purple-deep);
+    letter-spacing: 0.02em;
+    margin: 8px 0 12px;
+  }
+</style>

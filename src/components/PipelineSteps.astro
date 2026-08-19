@@ -1,0 +1,57 @@
+---
+const steps = [
+  { n: "01", title: "Check for a release", body: "Contacts aus1.torproject.org for the current release JSON matching your OS and architecture." },
+  { n: "02", title: "Confirm before downloading", body: "Shows you the exact version, binary URL, SHA-256, and signature URL — nothing downloads until you say go." },
+  { n: "03", title: "Download with progress", body: "Streams the archive over HTTPS with a live progress bar, in MB downloaded and total size." },
+  { n: "04", title: "Verify the checksum", body: "Hashes the downloaded file and compares it to the SHA-256 the release API reported. Any mismatch stops the install cold." },
+  { n: "05", title: "Verify the PGP signature", body: "Fetches the detached .asc signature and the Tor Browser Developers key, then verifies the signature with sequoia-openpgp." },
+  { n: "06", title: "Install", body: "macOS: copy the .app out of the mounted .dmg. Linux: extract the .tar.xz. Windows: run the NSIS installer silently." },
+  { n: "07", title: "Launch", body: "Opens Tor Browser directly from the completion screen — or find it later from the app's own home screen." },
+];
+---
+
+<ol class="pipeline">
+  {steps.map((s) => (
+    <li class="pipeline__step">
+      <span class="pipeline__n">{s.n}</span>
+      <div>
+        <h4>{s.title}</h4>
+        <p>{s.body}</p>
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .pipeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+    border-left: 2px solid var(--app-border);
+  }
+  .pipeline__step {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 16px;
+    padding: 18px 0 18px 20px;
+    margin-left: -2px;
+    border-left: 2px solid transparent;
+    position: relative;
+  }
+  .pipeline__n {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: var(--app-purple-bright);
+    background: var(--app-purple-soft);
+    border-radius: 8px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pipeline__step h4 { margin: 4px 0 4px; color: var(--tor-dark-grey); }
+  .pipeline__step p { margin: 0; color: var(--text-muted); font-size: 0.92rem; }
+</style>

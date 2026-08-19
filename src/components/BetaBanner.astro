@@ -1,0 +1,35 @@
+---
+import Icon from "./Icon.astro";
+---
+
+<div class="beta-banner" role="note" aria-label="Beta software notice">
+  <div class="container beta-banner__inner">
+    <span class="beta-banner__icon"><Icon name="beta" size={16} /></span>
+    <p>
+      <strong>Beta software.</strong> Tor Browser Installer is early and still settling —
+      the app itself flags every screen with a <span class="mono">BETA</span> badge for the same reason.
+      Expect rough edges, and please
+      <a href="https://github.com/reality-prod/tbi-rust/issues">report anything that breaks</a>.
+    </p>
+  </div>
+</div>
+
+<style>
+  .beta-banner {
+    background: var(--app-gold);
+    color: #4a3608;
+    font-size: 0.88rem;
+  }
+  .beta-banner__inner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-block: 8px;
+  }
+  .beta-banner__icon {
+    flex: none;
+    display: inline-flex;
+  }
+  .beta-banner p { margin: 0; }
+  .beta-banner a { color: #4a3608; text-decoration: underline; }
+</style>

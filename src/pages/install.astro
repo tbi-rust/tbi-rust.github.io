@@ -1,0 +1,93 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PlatformCards from "../components/PlatformCards.astro";
+import Icon from "../components/Icon.astro";
+---
+
+<Layout title="Install" description="How to build and run Tor Browser Installer from source, per-platform defaults, and usage steps.">
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Get started</span>
+      <h1>Installation</h1>
+      <p class="lede" style="max-width: 62ch;">
+        There's no packaged one-click download of Tor Browser Installer <em>itself</em> yet —
+        it's beta software, and for now the most trustworthy way to run it is to build it
+        yourself from a source tree you can read.
+      </p>
+
+      <h2 style="margin-top:48px;">1. Clone the repository</h2>
+      <pre><code>git clone https://github.com/reality-prod/tbi-rust.git
+cd tbi-rust</code></pre>
+
+      <h2 style="margin-top:36px;">2. Install Rust</h2>
+      <p>If you don't already have the Rust toolchain, get it from <a href="https://rustup.rs/">rustup.rs</a>.</p>
+
+      <h2 style="margin-top:36px;">3. Build and run</h2>
+      <pre><code>cargo run --release</code></pre>
+      <p>Rust compiles one binary per target — there's no single file that runs natively on all three
+        operating systems. The same source, built once per OS, resolves the right release JSON,
+        archive format, and install routine for whichever platform it was compiled on.</p>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <span class="eyebrow">Per-platform defaults</span>
+      <h2>Where it installs, and how it earns elevated access.</h2>
+      <p class="lede" style="max-width: 62ch; margin-bottom: 32px;">
+        Every location below matches that OS's own conventions — the same place Finder,
+        your package manager, or a typical installer would put things.
+      </p>
+      <PlatformCards />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <span class="eyebrow">Using the app</span>
+      <h2>Once it's running</h2>
+      <ol class="usage-list">
+        <li><strong>Launch the installer</strong> — run the compiled binary.</li>
+        <li><strong>Choose an install location</strong> — pre-filled with the platform default above, editable in the text field.</li>
+        <li><strong>Pick a scope</strong> — <em>Just me</em> (no special privileges) or <em>All users</em> (system-wide, needs a password).</li>
+        <li><strong>Click “Download &amp; Install”</strong> — the app shows you the version and URL, waits for your confirmation, then downloads, verifies, and installs.</li>
+        <li><strong>Launch Tor Browser</strong> — directly from the completion screen, or from the app's own “already installed” screen next time.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container narrow">
+      <span class="eyebrow">Troubleshooting</span>
+      <h2>Common issues</h2>
+      <div class="trouble">
+        <div>
+          <h4><Icon name="cross" size={16} /> “Could not fetch release information”</h4>
+          <p>Check your connection, or the Tor Project's release API may be briefly unavailable — try again shortly.</p>
+        </div>
+        <div>
+          <h4><Icon name="cross" size={16} /> “Checksum mismatch”</h4>
+          <p>The download was corrupted or intercepted in transit. The installer refuses to install it — download again.</p>
+        </div>
+        <div>
+          <h4><Icon name="cross" size={16} /> “PGP signature verification failed”</h4>
+          <p>The signature doesn't match the Tor Browser Developers key. The installer refuses to install it — this can indicate a compromised download.</p>
+        </div>
+        <div>
+          <h4><Icon name="cross" size={16} /> Permission denied (macOS/Linux)</h4>
+          <p>System-wide installs need your administrator password for <code>sudo -s</code>. It's used locally for that one command and is never stored or transmitted.</p>
+        </div>
+      </div>
+      <p style="margin-top:28px;">Click <strong>View commands</strong> inside the app at any time to see every system command it has run, in order — useful for debugging, and for checking its work.</p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .narrow { max-width: 760px; }
+  .usage-list { display: grid; gap: 14px; padding-left: 22px; }
+  .usage-list li { color: var(--text); }
+  .trouble { display: grid; gap: 24px; margin-top: 24px; }
+  .trouble h4 { display: flex; align-items: center; gap: 8px; color: var(--app-error); margin-bottom: 6px; }
+  .trouble p { margin: 0; color: var(--text-muted); }
+</style>

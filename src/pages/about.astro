@@ -1,0 +1,109 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+
+const deps = [
+  { name: "eframe / egui", note: "Cross-platform immediate-mode GUI framework" },
+  { name: "reqwest", note: "HTTP client used for the release check and download" },
+  { name: "sequoia-openpgp", note: "PGP signature verification" },
+  { name: "sha2", note: "SHA-256 hashing for checksum verification" },
+  { name: "directories", note: "Platform-specific default paths (Applications, LOCALAPPDATA, XDG)" },
+  { name: "serde / serde_json", note: "Parsing the Tor Project's release JSON" },
+];
+---
+
+<Layout title="About" description="Author, license, acknowledgments, and how to contribute to Tor Browser Installer.">
+  <section class="section">
+    <div class="container narrow">
+      <span class="eyebrow">About</span>
+      <h1>Made by Ribhav Sai Ramanuja Revalli.</h1>
+      <p class="lede">
+        Tor Browser Installer is an independent, unofficial project — a small
+        cross-platform installer and launcher for Tor Browser, built with Rust
+        and egui because native performance and a clean interface shouldn't
+        require Electron.
+      </p>
+
+      <div class="callout">
+        <Icon name="beta" size={20} />
+        <div>
+          <h4>Currently version 0.2.0, beta.</h4>
+          <p>Interfaces, defaults, and even the verification pipeline are still
+            settling. Read the <a href="/security">security page</a> before trusting
+            it with anything that matters.</p>
+        </div>
+      </div>
+
+      <h2 style="margin-top:48px;">License</h2>
+      <p>
+        Licensed under the <strong>GNU Affero General Public License v3.0 (AGPL-3.0)</strong>.
+        The full text ships in the repository's <code>LICENSE</code> file. In short: you can
+        run, study, share, and modify this software freely, and if you run a modified
+        version as a network service, you must make that modified source available to
+        the people using it.
+      </p>
+
+      <h2 style="margin-top:40px;">Built with</h2>
+      <ul class="deps">
+        {deps.map((d) => (
+          <li><span class="mono">{d.name}</span><span>{d.note}</span></li>
+        ))}
+      </ul>
+
+      <h2 style="margin-top:40px;">Acknowledgments</h2>
+      <ul class="ack">
+        <li><a href="https://www.torproject.org/">The Tor Project</a> — for building and maintaining Tor Browser.</li>
+        <li><a href="https://github.com/emilk/egui">egui</a> — for the GUI framework this app is built on.</li>
+        <li><a href="https://www.rust-lang.org/">Rust</a> — for the language and its ecosystem.</li>
+      </ul>
+
+      <h2 style="margin-top:40px;">Contributing</h2>
+      <ol class="usage-list">
+        <li>Fork the repository.</li>
+        <li>Create a feature branch: <code>git checkout -b feature/amazing-feature</code></li>
+        <li>Make your changes.</li>
+        <li>Run <code>cargo check</code> and <code>cargo clippy</code>.</li>
+        <li>Commit: <code>git commit -m 'Add amazing feature'</code></li>
+        <li>Push and open a pull request.</li>
+      </ol>
+
+      <p style="margin-top:32px;" class="disclaimer">
+        This is an unofficial, third-party tool and is not affiliated with or
+        endorsed by The Tor Project. "Tor" and the onion logo are trademarks of
+        The Tor Project, Inc.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .narrow { max-width: 720px; }
+  .callout {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 18px 20px;
+    border-radius: var(--radius-md);
+    margin-top: 28px;
+    background: rgba(214, 168, 40, 0.1);
+    border: 1px solid rgba(214, 168, 40, 0.35);
+    color: #8a6a10;
+  }
+  .callout h4 { margin: 0 0 4px; color: #8a6a10; }
+  .callout p { margin: 0; color: #6b5108; font-size: 0.94rem; }
+  .deps { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .deps li {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--app-border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+  }
+  .deps li span:last-child { color: var(--text-muted); text-align: right; }
+  .ack { padding-left: 22px; display: grid; gap: 8px; }
+  .usage-list { display: grid; gap: 10px; padding-left: 22px; }
+  .disclaimer { font-size: 0.85rem; color: var(--app-text-secondary); border-top: 1px solid var(--app-border); padding-top: 20px; }
+</style>

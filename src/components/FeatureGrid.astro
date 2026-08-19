@@ -1,0 +1,63 @@
+---
+import Icon from "./Icon.astro";
+
+const features = [
+  {
+    icon: "download",
+    title: "One-click installation",
+    body: "Fetches the current release straight from the Tor Project's own release API — no third-party mirrors.",
+  },
+  {
+    icon: "shield",
+    title: "Automatic verification",
+    body: "SHA-256 checksum plus PGP signature verification against the Tor Browser Developers signing key, before a single file is installed.",
+  },
+  {
+    icon: "terminal",
+    title: "Cross-platform",
+    body: "One source tree, three OS-appropriate builds — each compiled separately for macOS, Linux, and Windows, and each drives the install routine native to its platform.",
+  },
+  {
+    icon: "lock",
+    title: "Just me, or everyone",
+    body: "Install into your own account with no special privileges, or system-wide for every account on the machine via an authenticated sudo/administrator prompt.",
+  },
+  {
+    icon: "check",
+    title: "Dark and light mode",
+    body: "A theme toggle in the header switches the whole interface, no restart required.",
+  },
+  {
+    icon: "folder",
+    title: "Transparent operations",
+    body: "A “View commands” panel logs every shell command the installer runs, in order — passwords are never written to it.",
+  },
+];
+---
+
+<div class="grid grid--3">
+  {features.map((f) => (
+    <div class="feature card">
+      <div class="feature__icon"><Icon name={f.icon as any} size={22} /></div>
+      <h3>{f.title}</h3>
+      <p>{f.body}</p>
+    </div>
+  ))}
+</div>
+
+<style>
+  .feature { padding: 26px 24px; }
+  .feature__icon {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--app-purple-soft);
+    color: var(--app-purple-bright);
+    margin-bottom: 14px;
+  }
+  .feature h3 { margin-bottom: 6px; font-size: 1.08rem; color: var(--tor-dark-grey); }
+  .feature p { color: var(--text-muted); font-size: 0.94rem; margin: 0; }
+</style>

@@ -1,0 +1,92 @@
+---
+import { base } from "../lib/base";
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__col">
+      <a class="footer__brand" href={base}>
+        <img src={`${base}assets/tor_logo_tbb.svg`} width="30" height="30" alt="" />
+        Tor Browser Installer
+      </a>
+      <p>
+        A small, unofficial installer for Tor Browser — Rust + egui, downloads over
+        plain HTTPS, verifies SHA-256 and PGP before it installs anything.
+      </p>
+      <p class="footer__disclaimer">
+        Not affiliated with or endorsed by The Tor Project. "Tor" and the onion logo
+        are trademarks of The Tor Project, Inc.
+      </p>
+    </div>
+    <div class="footer__col">
+      <h4>Project</h4>
+      <ul>
+        <li><a href={`${base}install`}>Installation</a></li>
+        <li><a href={`${base}security`}>Security &amp; verification</a></li>
+        <li><a href={`${base}about`}>About &amp; license</a></li>
+        <li><a href="https://github.com/reality-prod/tbi-rust">Source on GitHub</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Get Tor, officially</h4>
+      <ul>
+        <li><a href="https://www.torproject.org/download/">torproject.org/download</a></li>
+        <li><a href="https://support.torproject.org/">Tor Project support</a></li>
+        <li><a href="https://styleguide.torproject.org/">Tor style guide</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer__bottom">
+    <span>© {year} Ribhav Sai Ramanuja Revalli. Licensed under AGPL-3.0.</span>
+    <span class="mono">v0.2.0-beta</span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--app-purple-deep);
+    color: #cbb3de;
+    padding-block: 56px 24px;
+    margin-top: 64px;
+  }
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 32px;
+  }
+  .footer__brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .footer p { color: #cbb3de; font-size: 0.92rem; }
+  .footer__disclaimer { font-size: 0.8rem; color: #a98fc0; }
+  .footer h4 {
+    color: #fff;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 12px;
+  }
+  .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .footer a { color: #d8c3ee; font-size: 0.92rem; }
+  .footer a:hover { color: #fff; }
+  .footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 0.82rem;
+    color: #a98fc0;
+  }
+  @media (max-width: 760px) {
+    .footer__inner { grid-template-columns: 1fr; }
+  }
+</style>

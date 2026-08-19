@@ -1,0 +1,124 @@
+---
+import Layout from "../layouts/Layout.astro";
+import AppMockCard from "../components/AppMockCard.astro";
+import FeatureGrid from "../components/FeatureGrid.astro";
+import PipelineSteps from "../components/PipelineSteps.astro";
+import ForDevelopers from "../components/ForDevelopers.astro";
+import Icon from "../components/Icon.astro";
+import { base } from "../lib/base";
+---
+
+<Layout title="Home">
+  <section class="hero section">
+    <div class="container hero__grid">
+      <div class="hero__copy">
+        <span class="eyebrow"><Icon name="lock" size={14} /> Unofficial · Rust + egui</span>
+        <h1>A calmer way to install Tor Browser.</h1>
+        <p class="lede">
+          One button. It fetches the current release from the Tor Project, shows you
+          exactly what it's about to download, verifies the SHA-256 and PGP signature,
+          then installs it — with every command it ran logged in the open.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--ghost" href={`${base}install`}>Build it from source</a>
+        </div>
+        <p class="hero__note">
+          <Icon name="beta" size={14} /> Currently in beta.
+        </p>
+      </div>
+      <div class="hero__visual">
+        <AppMockCard />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <span class="eyebrow">Why it exists</span>
+      <h2>The official Tor Browser installer is a browser download. This is the part after that.</h2>
+      <p class="lede" style="max-width: 62ch;">
+        Tor Browser itself ships as a folder you extract, or an app you drag into
+        <code>/Applications</code>. Tor Browser Installer automates that last mile —
+        fetch, verify, place, launch — the same way a package manager would, without
+        asking you to trust a script you haven't read.
+      </p>
+      <div style="margin-top: 40px;">
+        <FeatureGrid />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">How a run actually works</span>
+      <h2>Seven steps, in this exact order, every time.</h2>
+      <p class="lede" style="max-width: 62ch; margin-bottom: 32px;">
+        This is the real pipeline the worker thread runs — <code>run_install_pipeline</code>
+        in <code>main.rs</code> — not a marketing simplification.
+      </p>
+      <PipelineSteps />
+    </div>
+  </section>
+
+  <ForDevelopers />
+
+  <section class="section section--deep">
+    <div class="container security-teaser">
+      <div>
+        <span class="eyebrow" style="color:#e3cbfb;"><Icon name="shield" size={14} /> Security posture</span>
+        <h2>Verified before it's trusted. Never silently.</h2>
+        <p style="max-width: 56ch;">
+          The download itself happens over plain HTTPS, not over the Tor network —
+          a network observer can see that this machine fetched Tor Browser. Everything
+          after that download is checked before anything is installed: SHA-256 first,
+          then a PGP signature from the Tor Browser Developers key. If either check
+          fails, nothing gets installed.
+        </p>
+        <a class="btn btn--onlight" href={`${base}security`}>Read the full security notes →</a>
+      </div>
+      <div class="security-teaser__fingerprint">
+        <span class="eyebrow" style="color:#e3cbfb;">Signing key fingerprint</span>
+        <p class="mono">EF6E 286D DA85 EA2A 4BA7<br />DE68 4E2C 6E87 9329 8290</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items: center;
+    padding-block: 24px;
+  }
+  .hero__actions { display: flex; gap: 14px; flex-wrap: wrap; margin: 28px 0 14px; }
+  .hero__note {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.86rem;
+    color: var(--app-text-secondary);
+  }
+  .hero__visual { display: flex; justify-content: center; }
+  @media (max-width: 900px) {
+    .hero__grid { grid-template-columns: 1fr; }
+  }
+
+  .security-teaser {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .security-teaser__fingerprint {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: var(--radius-md);
+    padding: 20px 22px;
+  }
+  .security-teaser__fingerprint p { color: #f3e9fb; font-size: 0.86rem; line-height: 1.7; margin: 8px 0 0; }
+  @media (max-width: 900px) {
+    .security-teaser { grid-template-columns: 1fr; }
+  }
+</style>

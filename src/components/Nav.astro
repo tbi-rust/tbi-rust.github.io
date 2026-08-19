@@ -1,0 +1,96 @@
+---
+import { base } from "../lib/base";
+const links = [
+  { href: `${base}`, label: "Home" },
+  { href: `${base}install`, label: "Install" },
+  { href: `${base}security`, label: "Security" },
+  { href: `${base}#for-developers`, label: "For Tor devs" },
+  { href: `${base}about`, label: "About" },
+];
+const current = Astro.url.pathname;
+---
+
+<header class="nav">
+  <div class="container nav__inner">
+    <a class="nav__brand" href={base}>
+      <img src={`${base}assets/tor_logo_tbb.svg`} width="34" height="34" alt="" />
+      <span>
+        Tor Browser Installer
+        <em>beta</em>
+      </span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        {links.map((l) => (
+          <li>
+            <a href={l.href} aria-current={current === l.href ? "page" : undefined}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <a class="btn btn--primary nav__cta" href="https://github.com/reality-prod/tbi-rust/releases">
+      <span aria-hidden="true">⇩</span> Get it on GitHub
+    </a>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: saturate(180%) blur(10px);
+    border-bottom: 1px solid var(--app-border);
+  }
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-block: 12px;
+  }
+  .nav__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--app-purple-deep);
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .nav__brand em {
+    display: inline-block;
+    font-style: normal;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8a6a10;
+    background: rgba(214, 168, 40, 0.16);
+    padding: 2px 6px;
+    border-radius: 999px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .nav__links {
+    display: flex;
+    gap: 22px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav__links a {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.94rem;
+  }
+  .nav__links a:hover { color: var(--app-purple-bright); text-decoration: none; }
+  .nav__links a[aria-current="page"] { color: var(--app-purple-bright); }
+  .nav__cta { padding: 9px 16px; font-size: 0.88rem; flex: none; }
+
+  @media (max-width: 760px) {
+    .nav__links { display: none; }
+  }
+</style>

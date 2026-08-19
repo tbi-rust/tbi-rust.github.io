@@ -1,0 +1,245 @@
+/* ------------------------------------------------------------------ */
+/* Tokens                                                              */
+/*                                                                      */
+/* Brand colors are the four official values from the Tor Project      */
+/* style guide (styleguide.torproject.org/visuals): Purple, Dark       */
+/* Purple, Green, and Grey. The "app" purples are the exact gradient   */
+/* stops already shipped in this app's own icon (src/assets/           */
+/* tor_logo_tbb.svg) and palette module in main.rs — reused here       */
+/* rather than re-invented, so the site and the app read as one thing. */
+/* ------------------------------------------------------------------ */
+:root {
+  /* Tor Project brand palette */
+  --tor-purple: #7d4698;
+  --tor-purple-dark: #59316b;
+  --tor-green: #68b030;
+  --tor-grey: #f8f9fa;
+  --tor-dark-grey: #333a41;
+  --tor-white: #ffffff;
+
+  /* This app's own palette (src/main.rs :: mod palette) */
+  --app-purple-deep: #420c5d;
+  --app-purple-bright: #951ad1;
+  --app-purple-soft: #f2e4ff;
+  --app-gold: #d6a828;
+  --app-success: #18a35a;
+  --app-error: #c82d3c;
+  --app-border: #e8e2f0;
+  --app-text-secondary: #6c6476;
+
+  /* Surfaces */
+  --bg: var(--tor-grey);
+  --surface: var(--tor-white);
+  --text: var(--tor-dark-grey);
+  --text-muted: #5b6470;
+
+  /* Type */
+  --font-sans: "Source Sans 3", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: "Source Serif 4", "Source Serif Pro", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* Rhythm */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-card: 0 1px 2px rgba(51, 58, 65, 0.06), 0 12px 32px -16px rgba(66, 12, 93, 0.18);
+  --container: 1120px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { display: block; max-width: 100%; }
+
+a {
+  color: var(--tor-purple);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+:focus-visible {
+  outline: 3px solid var(--app-purple-bright);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-sans);
+  color: var(--app-purple-deep);
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: clamp(2.2rem, 3vw + 1.4rem, 3.6rem); font-weight: 700; }
+h2 { font-size: clamp(1.6rem, 1.4vw + 1.2rem, 2.35rem); font-weight: 700; }
+h3 { font-size: 1.3rem; font-weight: 600; }
+h4 { font-size: 1.05rem; font-weight: 600; }
+
+p { margin: 0 0 1em; color: var(--text); }
+p.lede {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--text-muted);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--tor-purple);
+}
+
+.section {
+  padding-block: clamp(48px, 6vw, 96px);
+}
+.section--surface { background: var(--surface); border-block: 1px solid var(--app-border); }
+.section--deep {
+  background: linear-gradient(180deg, var(--app-purple-deep) 0%, #2c0840 100%);
+  color: var(--app-purple-soft);
+}
+.section--deep h2, .section--deep h3 { color: #fff; }
+.section--deep p { color: #d8c3ee; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.98rem;
+  padding: 12px 22px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
+}
+.btn:hover { text-decoration: none; }
+.btn:active { transform: translateY(1px); }
+
+.btn--primary {
+  background: var(--app-purple-bright);
+  color: #fff;
+  box-shadow: 0 10px 24px -10px rgba(149, 26, 209, 0.55);
+}
+.btn--primary:hover { background: var(--app-purple-deep); }
+
+.btn--ghost {
+  background: transparent;
+  border-color: var(--app-border);
+  color: var(--app-purple-deep);
+}
+.btn--ghost:hover { background: var(--app-purple-soft); }
+
+.btn--onlight {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.35);
+  color: #fff;
+}
+.btn--onlight:hover { background: rgba(255,255,255,0.16); }
+
+.icon {
+  width: 1em;
+  height: 1em;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--app-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.grid {
+  display: grid;
+  gap: 20px;
+}
+.grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 880px) {
+  .grid--2, .grid--3 { grid-template-columns: 1fr; }
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.tag--gold { background: rgba(214, 168, 40, 0.15); color: #8a6a10; }
+.tag--green { background: rgba(104, 176, 48, 0.15); color: #3f6c1c; }
+.tag--purple { background: var(--app-purple-soft); color: var(--app-purple-deep); }
+
+code, pre, .mono { font-family: var(--font-mono); }
+pre {
+  background: #201530;
+  color: #ece2f7;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+code:not(pre code) {
+  background: var(--app-purple-soft);
+  color: var(--app-purple-deep);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--app-purple-deep);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 0 0 8px 0;
+  z-index: 100;
+}
+.skip-link:focus { left: 0; }
+
+hr.rule {
+  border: none;
+  border-top: 1px solid var(--app-border);
+  margin: 2.5rem 0;
+}

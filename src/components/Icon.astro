@@ -1,0 +1,87 @@
+---
+// Every path below is copied directly from this project's own
+// src/assets/icons/*.svg (Feather-style, 24x24, stroke-based) so the
+// site's iconography is literally the app's iconography, not a
+// lookalike substitute.
+interface Props {
+  name: "download" | "check" | "cross" | "folder" | "launch" | "lock" | "beta" | "shield" | "terminal";
+  size?: number;
+  label?: string;
+}
+const { name, size = 20, label } = Astro.props;
+---
+
+{
+  name === "download" && (
+    <svg class="icon" width={size} height={size} viewBox="0 0 24 24" role={label ? "img" : "presentation"} aria-label={label}>
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="7 10 12 15 17 10" />
+      <line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+  )
+}
+{
+  name === "check" && (
+    <svg class="icon" width={size} height={size} viewBox="0 0 24 24" role={label ? "img" : "presentation"} aria-label={label}>
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  )
+}
+{
+  name === "cross" && (
+    <svg class="icon" width={size} height={size} viewBox="0 0 24 24" role={label ? "img" : "presentation"} aria-label={label}>
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  )
+}
+{
+  name === "folder" && (
+    <svg class="icon" width={size} height={size} viewBox="0 0 24 24" role={label ? "img" : "presentation"} aria-label={label}>
+      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+      <line x1="12" y1="11" x2="12" y2="17" />
+      <line x1="9" y1="14" x2="15" y2="14" />
+    </svg>
+  )
+}
+{
+  name === "launch" && (
+    <svg class="icon" width={size} height={size} viewBox="0 0 24 24" role={label ? "img" : "presentation"} aria-label={label}>
+      <line x1="5" y1="12" x2="19" y2="12" />
+      <polyline points="12 5 19 12 12 19" />
+    </svg>
+  )
+}
+{
+  name === "lock" && (
+    <svg class="icon" width={size} height={size} viewBox="0 0 24 24" role={label ? "img" : "presentation"} aria-label={label}>
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </svg>
+  )
+}
+{
+  name === "beta" && (
+    <svg class="icon" width={size} height={size} viewBox="0 0 24 24" role={label ? "img" : "presentation"} aria-label={label}>
+      <path d="M12 2L2 7l10 5 10-5-10-5z" />
+      <path d="M2 17l10 5 10-5" />
+      <path d="M2 12l10 5 10-5" />
+    </svg>
+  )
+}
+{
+  name === "shield" && (
+    <svg class="icon" width={size} height={size} viewBox="0 0 24 24" role={label ? "img" : "presentation"} aria-label={label}>
+      <path d="M12 2 4 5v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V5l-8-3z" />
+      <polyline points="9 12 11 14 15 9.5" />
+    </svg>
+  )
+}
+{
+  name === "terminal" && (
+    <svg class="icon" width={size} height={size} viewBox="0 0 24 24" role={label ? "img" : "presentation"} aria-label={label}>
+      <polyline points="4 17 10 11 4 5" />
+      <line x1="12" y1="19" x2="20" y2="19" />
+    </svg>
+  )
+}

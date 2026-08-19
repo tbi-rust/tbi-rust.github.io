@@ -1,0 +1,53 @@
+---
+const platforms = [
+  {
+    name: "macOS",
+    path: "/Applications",
+    scope: "\u201CAll users\u201D uses the native Touch ID / password prompt (or sudo, if you set a password).",
+    build: "cargo build --release --target x86_64-apple-darwin",
+  },
+  {
+    name: "Linux",
+    path: "~/.local/share/tor-browser (user) or /opt/tor-browser (all users)",
+    scope: "System-wide installs run one sudo -s command that extracts, chmods, and opens permissions in a single step.",
+    build: "cargo build --release --target x86_64-unknown-linux-gnu",
+  },
+  {
+    name: "Windows",
+    path: "%LOCALAPPDATA%\\Tor Browser or C:\\Tor Browser",
+    scope: "Uses the installer's own NSIS elevation (UAC) rather than a separate scope toggle.",
+    build: "cargo build --release --target x86_64-pc-windows-msvc",
+  },
+];
+---
+
+<div class="grid grid--3">
+  {platforms.map((p) => (
+    <div class="platform card">
+      <h3>{p.name}</h3>
+      <dl>
+        <dt>Default location</dt>
+        <dd class="mono">{p.path}</dd>
+        <dt>System-wide installs</dt>
+        <dd>{p.scope}</dd>
+      </dl>
+      <pre><code>{p.build}</code></pre>
+    </div>
+  ))}
+</div>
+
+<style>
+  .platform { padding: 22px; display: flex; flex-direction: column; gap: 10px; }
+  .platform h3 { margin-bottom: 2px; color: var(--app-purple-deep); }
+  .platform dl { margin: 0; }
+  .platform dt {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--app-text-secondary);
+    margin-top: 10px;
+  }
+  .platform dd { margin: 4px 0 0; font-size: 0.88rem; color: var(--text); }
+  .platform pre { margin-top: auto; font-size: 0.76rem; padding: 12px 14px; }
+</style>

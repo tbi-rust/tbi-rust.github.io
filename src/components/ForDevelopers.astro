@@ -1,0 +1,71 @@
+---
+import Icon from "./Icon.astro";
+---
+
+<section id="for-developers" class="section section--surface fordev">
+  <div class="container">
+    <span class="eyebrow"><Icon name="terminal" size={14} /> For Tor Project developers</span>
+    <h2>What the Flatpak launcher does for Linux, this does for every desktop.</h2>
+    <p class="lede" style="max-width: 68ch;">
+      <a href="https://flathub.org/apps/org.torproject.torbrowser-launcher">Tor Browser Launcher</a>
+      is the closest thing to this on Linux today: fetch the current release, verify it, install it,
+      launch it — distributed as a Flatpak. It's a good tool, but it's Linux-only by construction,
+      and it's Python + GTK running inside a Flatpak sandbox. Tor Browser Installer covers the same
+      job — fetch, confirm, verify, install, launch — as a single native Rust binary, and the exact
+      same source builds it for macOS and Windows too, not only Linux.
+    </p>
+
+    <div class="grid grid--3 fordev__grid">
+      <div class="card fordev__card">
+        <h3>Same job, one codebase</h3>
+        <p>Release-JSON fetch, SHA-256 checksum, PGP signature against the Tor Browser
+          Developers key, then a platform-native install step — the whole pipeline is one
+          <code>main.rs</code>, gated by <code>cfg(target_os = ...)</code> rather than three
+          separate platform-specific tools.</p>
+      </div>
+      <div class="card fordev__card">
+        <h3>Not limited to Linux, or to Flatpak</h3>
+        <p>No sandbox runtime or Flatpak permissions model to reason about. The macOS build
+          mounts the <code>.dmg</code> and copies the <code>.app</code> the way Finder would;
+          the Windows build drives the NSIS installer's own silent-install flags.</p>
+      </div>
+      <div class="card fordev__card">
+        <h3>Nothing hidden</h3>
+        <p>Every shell command the app runs is logged to a visible “View commands” panel in
+          the UI as it happens — the same transparency principle Tor Browser Launcher's users
+          already expect, carried to every platform.</p>
+      </div>
+    </div>
+
+    <div class="fordev__note">
+      <Icon name="beta" size={16} />
+      <p>
+        This is an independent, unofficial project, not a Tor Project product, and it hasn't
+        been reviewed or endorsed by the Tor Project. It's presented here as a working
+        starting point for that conversation, not a finished replacement — see the
+        <a href="/security">security page</a> for exactly what it does and doesn't cover
+        today, including the plain-HTTPS download and the current beta status.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fordev__grid { margin-top: 32px; }
+  .fordev__card { padding: 22px; }
+  .fordev__card h3 { color: var(--app-purple-deep); margin-bottom: 8px; font-size: 1.05rem; }
+  .fordev__card p { color: var(--text-muted); font-size: 0.92rem; margin: 0; }
+  .fordev__note {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-top: 32px;
+    padding: 16px 18px;
+    background: var(--app-purple-soft);
+    border: 1px solid var(--app-border);
+    border-radius: var(--radius-md);
+    color: var(--app-purple-deep);
+  }
+  .fordev__note :global(svg) { flex: none; margin-top: 3px; }
+  .fordev__note p { margin: 0; font-size: 0.88rem; }
+</style>
