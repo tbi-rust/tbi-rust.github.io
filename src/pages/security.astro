@@ -3,15 +3,14 @@ import Layout from "../layouts/Layout.astro";
 import Icon from "../components/Icon.astro";
 ---
 
-<Layout title="Security" description="How Tor Browser Installer verifies downloads: SHA-256, PGP signature verification, and what it deliberately does not hide about its own limits.">
+<Layout title="Security" description="How Tor Browser Installer verifies downloads and what it does not hide.">
   <section class="section">
     <div class="container narrow">
       <span class="eyebrow"><Icon name="shield" size={14} /> Security</span>
-      <h1>What this installer checks, and what it can't hide from you.</h1>
+      <h1>What gets checked, and what you should know.</h1>
       <p class="lede">
-        Downloading and running Tor Browser is security-sensitive. This page is the
-        same disclosure the app makes to itself, in the code, written out
-        in full rather than summarized away.
+        Installing Tor Browser is security-sensitive. This page explains exactly what 
+        this tool verifies and what it deliberately does not attempt to hide.
       </p>
 
       <div class="callout callout--warn">
@@ -19,11 +18,9 @@ import Icon from "../components/Icon.astro";
         <div>
           <h4>This is not a Tor connection.</h4>
           <p>
-            The installer downloads Tor Browser over <strong>plain HTTPS</strong>, not
-            over the Tor network. A network observer — your ISP, a coffee-shop
-            Wi-Fi operator, anyone between you and the Tor Project's servers — can see
-            that this machine fetched Tor Browser, even though they can't see what
-            you do inside it afterward.
+            The installer downloads Tor Browser over <strong>plain HTTPS</strong>, not 
+            over the Tor network. Anyone between you and the Tor Project's servers can 
+            see that you fetched Tor Browser. They cannot see what you do inside it afterward.
           </p>
         </div>
       </div>
@@ -31,16 +28,15 @@ import Icon from "../components/Icon.astro";
       <h2 style="margin-top: 48px;">Verification process</h2>
       <ol class="verify-list">
         <li>
-          <strong>Checksum verification.</strong> The downloaded file's SHA-256 hash is
-          computed locally and compared against the value reported by the Tor
-          Project's own release JSON. A mismatch stops the install immediately — the
-          file is discarded.
+          <strong>SHA-256 checksum.</strong> The downloaded file's hash is computed locally 
+          and compared against the value from the Tor Project's release JSON. A mismatch 
+          stops the install immediately. The file is discarded.
         </li>
         <li>
-          <strong>PGP signature verification.</strong> The detached <code>.asc</code>
-          signature is downloaded alongside the release, and verified against the
-          Tor Browser Developers signing key using <code>sequoia-openpgp</code>. This
-          key is fetched at verification time from <code>keys.openpgp.org</code>.
+          <strong>PGP signature.</strong> The detached <code>.asc</code> signature is 
+          downloaded alongside the release and verified against the Tor Browser 
+          Developers signing key using <code>sequoia-openpgp</code>. The key is fetched 
+          at verification time from <code>keys.openpgp.org</code>.
         </li>
       </ol>
 
@@ -48,41 +44,38 @@ import Icon from "../components/Icon.astro";
         <span class="eyebrow">Tor Browser Developers key fingerprint</span>
         <p class="mono fingerprint">EF6E 286D DA85 EA2A 4BA7&nbsp;DE68 4E2C 6E87 9329 8290</p>
         <p style="margin:0; font-size:0.86rem; color:var(--app-text-secondary);">
-          Compare this against the fingerprint published on
-          <a href="https://support.torproject.org/tbb/how-to-verify-signature/">the Tor Project's own signature-verification guide</a>
-          before trusting any build of this tool that claims to check against it.
+          Compare this against the fingerprint on
+          <a href="https://support.torproject.org/tbb/how-to-verify-signature/">the Tor Project's verification guide</a>.
         </p>
       </div>
 
       <p style="margin-top:16px;">
-        All verification happens <strong>before</strong> installation. If either check
-        fails, nothing is copied, extracted, or installed, and no partial state is
-        left behind beyond the (already-rejected) temp download, which is cleaned up.
+        All verification happens <strong>before</strong> installation. If either check 
+        fails, nothing is copied, extracted, or installed. No partial state is left behind.
       </p>
 
-      <h2 style="margin-top:48px;">Elevated installs</h2>
+      <h2 style="margin-top:48px;">System-wide installs</h2>
       <p>
-        A system-wide (“all users”) install writes into a location regular accounts
-        don't own — <code>/Applications</code> is already system-owned on macOS,
-        and <code>/opt</code> is on Linux. Rather than discover a permission failure
-        partway through copying files, the app asks for a password up front and runs
-        the whole install as one authenticated <code>sudo -s</code> command. On
-        macOS, a per-user install additionally has a fallback: it tries a plain copy
-        first, and only escalates to the native Touch ID / password prompt if that
-        copy is actually refused.
+        Installing for all users requires writing to system-owned locations: 
+        <code>/Applications</code> on macOS, <code>/opt</code> on Linux. Rather than 
+        discovering a permission failure mid-install, the app asks for your password 
+        up front and runs the entire install as one authenticated command.
       </p>
-      <p>The password itself is kept only in memory, sent once to the background
-        worker thread when the install starts, and is never written to the
-        “View commands” log or anywhere on disk.</p>
-
-      <h2 style="margin-top:48px;">Known limitation this project is upfront about</h2>
       <p>
-        Earlier prototypes of this codebase shipped checksum-only verification
-        without the PGP step. If you're auditing a build, confirm the binary you're
-        running actually performs signature verification (search for
-        <code>verify_pgp_signature</code> in <code>main.rs</code>) rather than
-        assuming from this page alone — this site describes the current source,
-        not whatever binary happens to be on your disk.
+        On macOS, a per-user install tries a plain copy first, and only escalates to 
+        the Touch ID/password prompt if that copy is refused.
+      </p>
+      <p>
+        The password is kept only in memory, sent once to the background worker thread 
+        when the install starts, and is never written to the command log or disk.
+      </p>
+
+      <h2 style="margin-top:48px;">Known limitation</h2>
+      <p>
+        Earlier versions of this codebase shipped with checksum-only verification. 
+        If you're auditing a build, confirm the binary actually performs PGP signature 
+        verification (search for <code>verify_pgp_signature</code> in <code>main.rs</code>) 
+        rather than assuming from this page alone.
       </p>
     </div>
   </section>

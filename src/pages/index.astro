@@ -3,7 +3,6 @@ import Layout from "../layouts/Layout.astro";
 import AppMockCard from "../components/AppMockCard.astro";
 import FeatureGrid from "../components/FeatureGrid.astro";
 import PipelineSteps from "../components/PipelineSteps.astro";
-import ForDevelopers from "../components/ForDevelopers.astro";
 import Icon from "../components/Icon.astro";
 import { base } from "../lib/base";
 ---
@@ -12,18 +11,19 @@ import { base } from "../lib/base";
   <section class="hero section">
     <div class="container hero__grid">
       <div class="hero__copy">
-        <span class="eyebrow"><Icon name="lock" size={14} /> Unofficial · Rust + egui</span>
-        <h1>A calmer way to install Tor Browser.</h1>
+        <span class="eyebrow"><Icon name="lock" size={14} /> Unofficial &middot; Rust + egui</span>
+        <h1>Install Tor Browser properly.</h1>
         <p class="lede">
-          One button. It fetches the current release from the Tor Project, shows you
-          exactly what it's about to download, verifies the SHA-256 and PGP signature,
-          then installs it — with every command it ran logged in the open.
+          One click. The app downloads the latest Tor Browser directly from the 
+          official servers, shows you the file details, verifies the checksum and 
+          signature, then installs it. Every command is logged so you can see exactly 
+          what happened.
         </p>
         <div class="hero__actions">
-          <a class="btn btn--ghost" href={`${base}install`}>Build it from source</a>
+          <a class="btn btn--ghost" href={`${base}install`}>Build from source</a>
         </div>
         <p class="hero__note">
-          <Icon name="beta" size={14} /> Currently in beta.
+          <Icon name="beta" size={14} /> Beta software.
         </p>
       </div>
       <div class="hero__visual">
@@ -34,13 +34,13 @@ import { base } from "../lib/base";
 
   <section class="section section--surface">
     <div class="container">
-      <span class="eyebrow">Why it exists</span>
-      <h2>The official Tor Browser installer is a browser download. This is the part after that.</h2>
+      <span class="eyebrow">The problem</span>
+      <h2>Tor Browser does not have a proper installer. This is one.</h2>
       <p class="lede" style="max-width: 62ch;">
-        Tor Browser itself ships as a folder you extract, or an app you drag into
-        <code>/Applications</code>. Tor Browser Installer automates that last mile —
-        fetch, verify, place, launch — the same way a package manager would, without
-        asking you to trust a script you haven't read.
+        You download Tor Browser and get a folder to extract or an app to drag into 
+        <code>/Applications</code>. No verification, no proper installation. This tool 
+        does what should have been done from the start: download, verify, install, 
+        launch. No manual steps, no scripts to trust blindly.
       </p>
       <div style="margin-top: 40px;">
         <FeatureGrid />
@@ -50,34 +50,30 @@ import { base } from "../lib/base";
 
   <section class="section">
     <div class="container">
-      <span class="eyebrow">How a run actually works</span>
-      <h2>Seven steps, in this exact order, every time.</h2>
+      <span class="eyebrow">How it works</span>
+      <h2>Seven steps, every time, no exceptions.</h2>
       <p class="lede" style="max-width: 62ch; margin-bottom: 32px;">
-        This is the real pipeline the worker thread runs — <code>run_install_pipeline</code>
-        in <code>main.rs</code> — not a marketing simplification.
+        This is the actual code path in <code>main.rs</code>. Not a simplified version, 
+        not marketing speak. The real pipeline.
       </p>
       <PipelineSteps />
     </div>
   </section>
 
-  <ForDevelopers />
-
   <section class="section section--deep">
     <div class="container security-teaser">
       <div>
-        <span class="eyebrow" style="color:#e3cbfb;"><Icon name="shield" size={14} /> Security posture</span>
-        <h2>Verified before it's trusted. Never silently.</h2>
+        <span class="eyebrow" style="color:#e3cbfb;"><Icon name="shield" size={14} /> Security</span>
+        <h2>Verify first. Install second. Never the other way around.</h2>
         <p style="max-width: 56ch;">
-          The download itself happens over plain HTTPS, not over the Tor network —
-          a network observer can see that this machine fetched Tor Browser. Everything
-          after that download is checked before anything is installed: SHA-256 first,
-          then a PGP signature from the Tor Browser Developers key. If either check
-          fails, nothing gets installed.
+          Downloads happen over HTTPS, not Tor, so observers can see you fetched Tor Browser. 
+          But nothing gets installed until both the SHA-256 hash and PGP signature check out. 
+          If either fails, the install stops dead. No partial installs, no exceptions.
         </p>
-        <a class="btn btn--onlight" href={`${base}security`}>Read the full security notes →</a>
+        <a class="btn btn--onlight" href={`${base}security`}>Full security details &rarr;</a>
       </div>
       <div class="security-teaser__fingerprint">
-        <span class="eyebrow" style="color:#e3cbfb;">Signing key fingerprint</span>
+        <span class="eyebrow" style="color:#e3cbfb;">Tor Browser Developers key</span>
         <p class="mono">EF6E 286D DA85 EA2A 4BA7<br />DE68 4E2C 6E87 9329 8290</p>
       </div>
     </div>

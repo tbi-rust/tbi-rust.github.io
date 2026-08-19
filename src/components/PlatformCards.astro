@@ -3,13 +3,13 @@ const platforms = [
   {
     name: "macOS",
     path: "/Applications",
-    scope: "\u201CAll users\u201D uses the native Touch ID / password prompt (or sudo, if you set a password).",
+    scope: "All users uses the native Touch ID / password prompt (or sudo if you have a password set).",
     build: "cargo build --release --target x86_64-apple-darwin",
   },
   {
     name: "Linux",
     path: "~/.local/share/tor-browser (user) or /opt/tor-browser (all users)",
-    scope: "System-wide installs run one sudo -s command that extracts, chmods, and opens permissions in a single step.",
+    scope: "System-wide installs run one sudo -s command that extracts, chmods, and sets permissions in a single step.",
     build: "cargo build --release --target x86_64-unknown-linux-gnu",
   },
   {

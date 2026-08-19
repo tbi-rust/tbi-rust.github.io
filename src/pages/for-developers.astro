@@ -1,0 +1,111 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import { base } from "../lib/base";
+---
+
+<Layout title="For Developers" description="Technical approach behind Tor Browser Installer.">
+  <section class="section section--surface">
+    <div class="container">
+      <span class="eyebrow"><Icon name="terminal" size={14} /> For Developers</span>
+      <h1>Cross-platform Tor Browser installation, done right.</h1>
+      
+      <p class="lede" style="max-width: 68ch;">
+        On Linux, <a href="https://flathub.org/apps/org.torproject.torbrowser-launcher">Tor Browser Launcher</a>
+        does this as a Flatpak: fetch, verify, install, launch. It works, but it's Linux-only 
+        and runs Python + GTK in a sandbox. This project does the same thing as a single 
+        native Rust binary that compiles for macOS, Windows, and Linux.
+      </p>
+
+      <div class="grid grid--3 dev-grid" style="margin-top: 40px;">
+        <div class="card dev-card">
+          <h3>One codebase, all platforms</h3>
+          <p>
+            Everything is in <code>main.rs</code>: fetch release JSON, download the bundle, 
+            verify SHA-256, check PGP signature against the Tor Browser Developers key, 
+            then install using platform-native methods. Platform differences use 
+            <code>cfg(target_os = ...)</code>.
+          </p>
+        </div>
+        <div class="card dev-card">
+          <h3>No sandbox, no runtime</h3>
+          <p>
+            No Flatpak runtime or permission model. On macOS: mount DMG, copy app. 
+            On Linux: extract tar.xz. On Windows: run NSIS installer silently. 
+            Simple, direct, predictable.
+          </p>
+        </div>
+        <div class="card dev-card">
+          <h3>Full transparency</h3>
+          <p>
+            Every command the app runs is logged to a visible panel in the UI as it 
+            happens. Same principle as Tor Browser Launcher, now on every platform.
+          </p>
+        </div>
+      </div>
+
+      <div class="dev-note">
+        <Icon name="info" size={18} />
+        <div>
+          <p>
+            <strong>Note:</strong> This is an independent project, not a Tor Project product. 
+            See the <a href={`${base}security`}>security page</a> for full verification details.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .dev-grid {
+    margin-top: 32px;
+  }
+  .dev-card {
+    padding: 24px;
+  }
+  .dev-card h3 {
+    color: var(--app-purple-deep);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+  }
+  .dev-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.6;
+  }
+  .dev-note {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-top: 40px;
+    padding: 20px 22px;
+    background: var(--app-purple-soft);
+    border: 1px solid var(--app-border);
+    border-radius: var(--radius-md);
+    color: var(--app-purple-deep);
+  }
+  .dev-note :global(svg) {
+    flex: none;
+    margin-top: 2px;
+  }
+  .dev-note p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+  .dev-note a {
+    color: var(--app-purple-deep);
+    text-decoration: underline;
+  }
+  .dev-note a:hover {
+    color: var(--app-purple-bright);
+  }
+  
+  @media (max-width: 880px) {
+    .grid--3 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

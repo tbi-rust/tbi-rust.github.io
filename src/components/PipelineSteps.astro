@@ -1,12 +1,12 @@
 ---
 const steps = [
-  { n: "01", title: "Check for a release", body: "Contacts aus1.torproject.org for the current release JSON matching your OS and architecture." },
-  { n: "02", title: "Confirm before downloading", body: "Shows you the exact version, binary URL, SHA-256, and signature URL — nothing downloads until you say go." },
-  { n: "03", title: "Download with progress", body: "Streams the archive over HTTPS with a live progress bar, in MB downloaded and total size." },
-  { n: "04", title: "Verify the checksum", body: "Hashes the downloaded file and compares it to the SHA-256 the release API reported. Any mismatch stops the install cold." },
-  { n: "05", title: "Verify the PGP signature", body: "Fetches the detached .asc signature and the Tor Browser Developers key, then verifies the signature with sequoia-openpgp." },
-  { n: "06", title: "Install", body: "macOS: copy the .app out of the mounted .dmg. Linux: extract the .tar.xz. Windows: run the NSIS installer silently." },
-  { n: "07", title: "Launch", body: "Opens Tor Browser directly from the completion screen — or find it later from the app's own home screen." },
+  { n: "01", title: "Check for release", body: "Contacts aus1.torproject.org for the current release JSON matching your OS and architecture." },
+  { n: "02", title: "Confirm before download", body: "Shows you the exact version, binary URL, SHA-256, and signature URL. Nothing downloads until you confirm." },
+  { n: "03", title: "Download with progress", body: "Streams the archive over HTTPS with a live progress bar showing MB downloaded and total size." },
+  { n: "04", title: "Verify checksum", body: "Hashes the downloaded file and compares it to the SHA-256 from the release API. Any mismatch stops the install." },
+  { n: "05", title: "Verify PGP signature", body: "Fetches the detached .asc signature and the Tor Browser Developers key, verifies with sequoia-openpgp." },
+  { n: "06", title: "Install", body: "macOS: copy .app from mounted .dmg. Linux: extract .tar.xz. Windows: run NSIS installer silently." },
+  { n: "07", title: "Launch", body: "Opens Tor Browser directly from the completion screen, or find it later from the app's home screen." },
 ];
 ---
 
