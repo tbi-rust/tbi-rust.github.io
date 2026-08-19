@@ -1,5 +1,5 @@
 # Tor Browser Installer — website
-
+Note: AI Made
 Static marketing/docs site for the [Tor Browser Installer](https://github.com/reality-prod/tbi-rust)
 app, built with [Astro](https://astro.build) in static-output mode. No client
 framework, no server — just HTML/CSS shipped from `dist/` after build.
