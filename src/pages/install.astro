@@ -27,6 +27,44 @@ cd tbi-rust</code></pre>
         Rust compiles one binary per platform. The same source, built once per OS, 
         handles the correct release JSON, archive format, and install routine for that platform.
       </p>
+
+      <div class="platform-instructions">
+        <h3>Platform-specific notes</h3>
+        <div class="platform-notes">
+          <div class="platform-note">
+            <div class="platform-note-header">
+              <strong>macOS</strong>
+            </div>
+            <p>
+              After building, you may see a security warning when trying to run the binary. 
+              Run this command to allow it:
+            </p>
+            <pre><code>xattr -cr target/release/tor-browser-builder</code></pre>
+            <p>This removes the quarantine flag that macOS adds to downloaded files.</p>
+          </div>
+          <div class="platform-note">
+            <div class="platform-note-header">
+              <strong>Windows</strong>
+            </div>
+            <p>
+              Windows SmartScreen may block the executable since it's unsigned. 
+              Click "More info" then "Run anyway" to proceed.
+            </p>
+            <p>
+              If downloading from GitHub, Chrome/Edge may warn about the file. 
+              Keep the file and click "Run anyway" when prompted.
+            </p>
+          </div>
+          <div class="platform-note">
+            <div class="platform-note-header">
+              <strong>Linux</strong>
+            </div>
+            <p>
+              No special steps needed. Just run the binary after building.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -93,4 +131,60 @@ cd tbi-rust</code></pre>
   .trouble { display: grid; gap: 24px; margin-top: 24px; }
   .trouble h4 { display: flex; align-items: center; gap: 8px; color: var(--app-error); margin-bottom: 6px; }
   .trouble p { margin: 0; color: var(--text-muted); }
+
+  .platform-instructions {
+    margin-top: 32px;
+    padding: 24px;
+    background: var(--app-purple-soft);
+    border: 1px solid var(--app-border);
+    border-radius: var(--radius-md);
+  }
+  
+  .platform-instructions h3 {
+    color: var(--app-purple-deep);
+    margin: 0 0 16px 0;
+    font-size: 1.1rem;
+  }
+  
+  .platform-notes {
+    display: grid;
+    gap: 24px;
+  }
+  
+  .platform-note {
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--app-border);
+    border-radius: var(--radius-sm);
+  }
+  
+  .platform-note-header {
+    color: var(--app-purple-deep);
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+  
+  .platform-note p {
+    color: var(--text-muted);
+    margin: 0 0 12px 0;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  
+  .platform-note pre {
+    background: var(--tor-grey);
+    border: 1px solid var(--app-border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 0 0 12px 0;
+    font-size: 0.88rem;
+  }
+  
+  .platform-note pre code {
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    color: var(--tor-dark-grey);
+  }
 </style>
