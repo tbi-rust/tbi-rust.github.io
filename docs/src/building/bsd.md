@@ -1,39 +1,35 @@
 # Building on BSD
 
-## Note this will only work with **FreeBSD** and **GhostBSD**
+## Note this will only work with **FreeBSD**, and **GhostBSD**
 
 > [!WARNING]
-> **Limited BSD Support**
-> Currently, the Tor Browser Builder project does not officially support FreeBSD or other BSD derivatives out of the box. The instructions on this page are provided as a community effort and have only been verified to work on **FreeBSD** and **GhostBSD**. 
+> **Limited BSD Support:** The Tor Browser builder doesn't currently support FreeBSD automatically. Any manual instructions or workarounds discussed on this page will only work with FreeBSD and GhostBSD. Other BSD derivatives are completely unsupported at this time.
 
-If you are a BSD user looking to run the Tor Browser, you might be wondering why our builder doesn't seamlessly support your operating system. We understand the frustration, and we want to be transparent about why the BSD ecosystem presents unique challenges for this project.
+If you are a BSD user looking to run the Tor Browser, you might be wondering why our builder doesn't seamlessly support your operating system out of the box. We understand the frustration, and we want to be completely transparent about why the BSD ecosystem presents unique challenges for this project.
 
-### Why doesn't the Tor Browser Builder support FreeBSD natively?
+### Why Doesn't the Builder Support FreeBSD Natively?
 
-There are two primary reasons why BSD platforms are not fully integrated into our automated builder:
+There are two primary reasons why BSD platforms are not fully integrated into our automated builder at this time:
 
-> [!NOTE]
-> **1. It's usually packaged for you**
-> The BSD philosophy often revolves around centralized, highly curated package management systems (like FreeBSD's `pkg` and Ports collection). In many cases, community maintainers already package a version of the Tor Browser or the core Tor daemon for your system. Because BSD users typically rely on these native package managers to resolve complex dependencies, a third-party automated builder can easily conflict with your system's native environment.
+**1. It's either packaged for you.**
+The BSD philosophy revolves around centralized, highly curated package management systems (like FreeBSD's `pkg` utility and the Ports collection). Dedicated community maintainers already do the heavy lifting to patch and package the Tor Browser specifically for your system. Because BSD users typically rely on these native package managers, a third-party automated builder can easily conflict with your system's environment. 
 
-> [!NOTE]
-> **2. You have to compile it from source**
-> Unlike Linux, Windows, or macOS, the Tor Project does not distribute pre-compiled, standalone binaries for BSD operating systems. Because there is no official binary to simply download, extract, and configure, installing the Tor Browser on BSD requires compiling the entire browser—a modified version of Mozilla Firefox—directly from source. This is a massive, time-consuming process that requires a deeply customized build environment, which falls outside the scope of our automated builder tool.
+**2. You have to compile it from source.**
+Unlike Windows, macOS, or Linux, there is no pre-built, ready-to-use release of the Tor Browser provided by upstream developers for BSD. Because there is no official binary for our builder to download and configure, getting the Tor Browser on BSD requires compiling the entire browser directly from source code. This is a massive, resource-intensive process that falls far outside the scope of a lightweight installer.
 
-### The Official Stance of The Tor Project
+### The Official Stance on BSD
 
-> [!IMPORTANT]
-> **Awaiting Official Support**
-> Unless [Tor Project Inc.](https://www.torproject.org) officially releases and maintains BSD as a supported platform with pre-compiled binaries, the Tor Browser Builder will not be able to offer automated support for BSDs. Our tool relies on upstream binaries, and without them, the heavy lifting of source compilation is left entirely to the user.
+Unless Tor Project Inc releases BSD as an official platform, BSDs will not be supported. I apologize in advance. 
 
-### A Sincere Apology
+We have profound respect for the BSD community and the shared focus on privacy and open-source software, but our tool relies entirely on pulling official, verified upstream releases. Without those binaries, the heavy lifting of source compilation must be left to the operating system's community maintainers.
 
-We deeply apologize in advance for this inconvenience. We have profound respect for the BSD community and the focus on privacy and security that BSD users bring to the table. However, until upstream support changes, you will need to rely on the FreeBSD Ports tree (e.g., `www/tor-browser`) or manual source compilation to access the Tor network via the browser.
+### What should you do instead?
 
-> [!TIP]
-> **Workaround for FreeBSD/GhostBSD users**
-> If you still want to proceed on FreeBSD or GhostBSD, we highly recommend checking your package manager first:
-> ```bash
-> pkg search tor-browser
-> ```
-> Alternatively, look into the Ports collection under `/usr/ports/www/tor-browser` for the community-maintained version.
+If you are on FreeBSD or GhostBSD, we highly recommend using the community-maintained packages rather than trying to compile from scratch yourself. You can usually find the Tor Browser in your package manager:
+
+```bash
+# Check for the package using pkg
+pkg search tor-browser
+
+# Install via pkg (if available)
+sudo pkg install tor-browser
