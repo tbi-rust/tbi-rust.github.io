@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import PlatformCards from "../components/PlatformCards.astro";
-import Icon from "../components/Icon.astro";
+import Notice from "../components/Notice.astro";
 ---
 
 <Layout title="Install" description="Build and run Tor Browser Installer from source.">
@@ -9,182 +8,44 @@ import Icon from "../components/Icon.astro";
     <div class="container">
       <span class="eyebrow">Get started</span>
       <h1>Installation</h1>
-      <p class="lede" style="max-width: 62ch;">
-        There is no pre-built binary yet. For now, build it yourself from source. 
-        It's beta software, and building from source is the most trustworthy way to run it.
-      </p>
-
-      <h2 style="margin-top:48px;">1. Clone the repository</h2>
-      <pre><code>git clone https://github.com/reality-prod/tbi-rust.git
-cd tbi-rust</code></pre>
-
-      <h2 style="margin-top:36px;">2. Install Rust</h2>
-      <p>If you don't have the Rust toolchain, get it from <a href="https://rustup.rs/">rustup.rs</a>.</p>
-
-      <h2 style="margin-top:36px;">3. Build and run</h2>
-      <pre><code>cargo run --release</code></pre>
-      <p>
-        Rust compiles one binary per platform. The same source, built once per OS, 
-        handles the correct release JSON, archive format, and install routine for that platform.
-      </p>
-
-      <div class="platform-instructions">
-        <h3>Platform-specific notes</h3>
-        <div class="platform-notes">
-          <div class="platform-note">
-            <div class="platform-note-header">
-              <strong>macOS</strong>
-            </div>
-            <p>
-              After building, you may see a security warning when trying to run the binary. 
-              Run this command to allow it:
-            </p>
-            <pre><code>xattr -cr target/release/tor-browser-builder</code></pre>
-            <p>This removes the quarantine flag that macOS adds to downloaded files.</p>
-          </div>
-          <div class="platform-note">
-            <div class="platform-note-header">
-              <strong>Windows</strong>
-            </div>
-            <p>
-              Windows SmartScreen may block the executable since it's unsigned. 
-              Click "More info" then "Run anyway" to proceed.
-            </p>
-            <p>
-              If downloading from GitHub, Chrome/Edge may warn about the file. 
-              Keep the file and click "Run anyway" when prompted.
-            </p>
-          </div>
-          <div class="platform-note">
-            <div class="platform-note-header">
-              <strong>Linux</strong>
-            </div>
-            <p>
-              No special steps needed. Just run the binary after building.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--surface">
-    <div class="container">
-      <span class="eyebrow">Per-platform defaults</span>
-      <h2>Where it installs, and how it gets the permissions it needs.</h2>
-      <p class="lede" style="max-width: 62ch; margin-bottom: 32px;">
-        Every location matches that OS's conventions. The same place Finder, your package 
-        manager, or a typical installer would put things.
-      </p>
-      <PlatformCards />
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container narrow">
-      <span class="eyebrow">Using the app</span>
-      <h2>Once it's running</h2>
-      <ol class="usage-list">
-        <li><strong>Launch the installer</strong> &mdash; run the compiled binary.</li>
-        <li><strong>Choose install location</strong> &mdash; pre-filled with the platform default, editable.</li>
-        <li><strong>Pick scope</strong> &mdash; <em>Just me</em> (no special privileges) or <em>All users</em> (system-wide, needs password).</li>
-        <li><strong>Click Download & Install</strong> &mdash; app shows version and URL, waits for confirmation, then downloads, verifies, installs.</li>
-        <li><strong>Launch Tor Browser</strong> &mdash; directly from completion screen, or from the app's home screen next time.</li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="section section--surface">
-    <div class="container narrow">
-      <span class="eyebrow">Troubleshooting</span>
-      <h2>Common issues</h2>
-      <div class="trouble">
-        <div>
-          <h4><Icon name="cross" size={16} /> &ldquo;Could not fetch release information&rdquo;</h4>
-          <p>Check your connection, or the Tor Project's release API may be down. Try again later.</p>
-        </div>
-        <div>
-          <h4><Icon name="cross" size={16} /> &ldquo;Checksum mismatch&rdquo;</h4>
-          <p>The download was corrupted or intercepted. The installer refuses to install it. Download again.</p>
-        </div>
-        <div>
-          <h4><Icon name="cross" size={16} /> &ldquo;PGP signature verification failed&rdquo;</h4>
-          <p>The signature doesn't match the Tor Browser Developers key. Installer refuses to install. Could indicate a compromised download.</p>
-        </div>
-        <div>
-          <h4><Icon name="cross" size={16} /> Permission denied (macOS/Linux)</h4>
-          <p>System-wide installs need your admin password for <code>sudo -s</code>. Used locally for that one command, never stored or transmitted.</p>
-        </div>
-      </div>
-      <p style="margin-top:28px;">
-        Click <strong>View commands</strong> inside the app at any time to see every system 
-        command it has run, in order. Useful for debugging and for checking its work.
-      </p>
+      
+      <Notice type="info" style="margin-top: 32px;">
+        <p>
+          Installation steps have moved. Please visit the 
+          <a href="/docs">documentation page</a> for up-to-date instructions.
+        </p>
+      </Notice>
     </div>
   </section>
 </Layout>
 
 <style>
-  .narrow { max-width: 760px; }
-  .usage-list { display: grid; gap: 14px; padding-left: 22px; }
-  .usage-list li { color: var(--text); }
-  .trouble { display: grid; gap: 24px; margin-top: 24px; }
-  .trouble h4 { display: flex; align-items: center; gap: 8px; color: var(--app-error); margin-bottom: 6px; }
-  .trouble p { margin: 0; color: var(--text-muted); }
+  /* Page layout structural styles */
+  .section {
+    padding: 64px 0;
+  }
 
-  .platform-instructions {
-    margin-top: 32px;
-    padding: 24px;
-    background: var(--app-purple-soft);
-    border: 1px solid var(--app-border);
-    border-radius: var(--radius-md);
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
   }
-  
-  .platform-instructions h3 {
-    color: var(--app-purple-deep);
-    margin: 0 0 16px 0;
-    font-size: 1.1rem;
-  }
-  
-  .platform-notes {
-    display: grid;
-    gap: 24px;
-  }
-  
-  .platform-note {
-    padding: 16px;
-    background: var(--surface);
-    border: 1px solid var(--app-border);
-    border-radius: var(--radius-sm);
-  }
-  
-  .platform-note-header {
-    color: var(--app-purple-deep);
-    margin-bottom: 12px;
-    font-size: 1.05rem;
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.875rem;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--app-purple-deep, #6b21a8);
+    margin-bottom: 8px;
   }
-  
-  .platform-note p {
-    color: var(--text-muted);
-    margin: 0 0 12px 0;
-    line-height: 1.6;
-    font-size: 0.95rem;
-  }
-  
-  .platform-note pre {
-    background: var(--tor-grey);
-    border: 1px solid var(--app-border);
-    border-radius: 6px;
-    padding: 12px 14px;
-    margin: 0 0 12px 0;
-    font-size: 0.88rem;
-  }
-  
-  .platform-note pre code {
-    background: transparent;
-    padding: 0;
-    border-radius: 0;
-    color: var(--tor-dark-grey);
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text, #111827);
+    margin: 0 0 16px 0;
   }
 </style>
