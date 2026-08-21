@@ -421,6 +421,8 @@ table tr:nth-child(even) td { background-color: var(--table-alternate-bg) !impor
 /* ==========================================================================
    11. BLOCKQUOTES / CALLOUTS
    ========================================================================== */
+
+/* Base blockquote style (fallback for standard quotes) */
 blockquote {
   background-color: var(--quote-bg) !important;
   border-left: 4px solid var(--quote-border) !important;
@@ -430,16 +432,56 @@ blockquote {
   border-radius: 0 8px 8px 0;
   font-family: var(--font-sans);
 }
+
 blockquote p:first-child { margin-top: 0; }
 blockquote p:last-child { margin-bottom: 0; }
-/* A blockquote that opens with a bold "**Note:**"-style lead-in reads a
-   touch more like a designed callout with a serif accent on that lead word. */
+
+/* Font accent for lead-in text */
 blockquote > p:first-child > strong:first-child {
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 600;
 }
 
+/* --------------------------------------------------------------------------
+   Admonition / Callout Specific Colors
+   Matches mdbook and GitHub alert classes
+   -------------------------------------------------------------------------- */
+
+/* NOTE: Blue */
+blockquote.note, 
+.markdown-alert-note {
+  background-color: rgba(9, 105, 218, 0.05) !important;
+  border-left-color: #0969da !important;
+}
+
+/* TIP: Green */
+blockquote.tip, 
+.markdown-alert-tip {
+  background-color: rgba(26, 127, 55, 0.05) !important;
+  border-left-color: #1a7f37 !important;
+}
+
+/* IMPORTANT: Purple */
+blockquote.important, 
+.markdown-alert-important {
+  background-color: rgba(130, 80, 223, 0.05) !important;
+  border-left-color: #8250df !important;
+}
+
+/* WARNING: Orange / Yellow */
+blockquote.warning, 
+.markdown-alert-warning {
+  background-color: rgba(154, 103, 0, 0.05) !important;
+  border-left-color: #d4a72c !important;
+}
+
+/* CAUTION: Red */
+blockquote.caution, 
+.markdown-alert-caution {
+  background-color: rgba(207, 34, 46, 0.05) !important;
+  border-left-color: #cf222e !important;
+}
 /* ==========================================================================
    12. PREV/NEXT CHAPTER NAV
    ========================================================================== */
