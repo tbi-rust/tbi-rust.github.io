@@ -30,6 +30,12 @@ jobs:
       - name: Build mdBook
         run: mdbook build docs
 
+      # This is the new step: it moves the book into Astro's static folder
+      - name: Copy mdBook to Astro public folder
+        run: |
+          mkdir -p public/docs
+          cp -r docs/book public/docs/book
+
       - name: Build Astro site
         uses: withastro/action@v3
         with:
