@@ -14,6 +14,7 @@
 - [Building on macOS](./building/macos.md)
 - [Building on Linux](./building/linux.md)
 - [Building on Windows](./building/windows.md)
+- [Building on BSD](./building/bsd.md)
 - [Cross-compiling](./cross-compiling.md)
 - [Packaging formats](./packaging-formats.md)
 
