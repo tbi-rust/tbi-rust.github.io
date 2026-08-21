@@ -451,36 +451,36 @@ blockquote > p:first-child > strong:first-child {
 /* NOTE: Blue */
 blockquote.note, 
 .markdown-alert-note {
-  background-color: rgba(9, 105, 218, 0.05) !important;
-  border-left-color: #0969da !important;
+  background-color: rgba(9, 105, 218, 0.1) !important;
+  border-left: 4px solid #0969da !important;
 }
 
 /* TIP: Green */
 blockquote.tip, 
 .markdown-alert-tip {
-  background-color: rgba(26, 127, 55, 0.05) !important;
-  border-left-color: #1a7f37 !important;
+  background-color: rgba(26, 127, 55, 0.1) !important;
+  border-left: 4px solid #1a7f37 !important;
 }
 
 /* IMPORTANT: Purple */
 blockquote.important, 
 .markdown-alert-important {
-  background-color: rgba(130, 80, 223, 0.05) !important;
-  border-left-color: #8250df !important;
+  background-color: rgba(130, 80, 223, 0.1) !important;
+  border-left: 4px solid #8250df !important;
 }
 
 /* WARNING: Orange / Yellow */
 blockquote.warning, 
 .markdown-alert-warning {
-  background-color: rgba(154, 103, 0, 0.05) !important;
-  border-left-color: #d4a72c !important;
+  background-color: rgba(154, 103, 0, 0.1) !important;
+  border-left: 4px solid #d4a72c !important;
 }
 
 /* CAUTION: Red */
 blockquote.caution, 
 .markdown-alert-caution {
-  background-color: rgba(207, 34, 46, 0.05) !important;
-  border-left-color: #cf222e !important;
+  background-color: rgba(207, 34, 46, 0.1) !important;
+  border-left: 4px solid #cf222e !important;
 }
 /* ==========================================================================
    12. PREV/NEXT CHAPTER NAV
