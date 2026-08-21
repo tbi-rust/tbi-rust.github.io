@@ -1,37 +1,54 @@
-# Building on BSD
+# Building on BSD (and other alternative operating systems)
 
-## Note this will only work with **FreeBSD**, and **GhostBSD**
+## This page currently only applies to **FreeBSD** and **GhostBSD**
 
 > [!WARNING]
-> **Limited Support:** The Tor Browser builder doesn't currently support FreeBSD automatically. Any manual instructions or workarounds discussed on this page will only work with FreeBSD and GhostBSD. Other BSD derivatives are completely unsupported at this time.
+> **Limited support.** The Tor Browser Installer doesn't build or install anything automatically on FreeBSD. Nothing on this page has been tested on any other BSD derivative. If you're on OpenBSD, NetBSD, DragonFly, HardenedBSD, Haiku, SerenityOS, ReactOS, or anything else outside Windows/macOS/Linux, none of this is verified for you. If you get something working, open an issue so this page can grow.
 
-If you are a BSD/Alt OS user looking to run the Tor Browser, you might be wondering why our builder doesn't seamlessly support your operating system out of the box. We understand the frustration, and we want to be completely transparent about why the BSD ecosystem presents unique challenges for this project.
+Short answer: no, this installer does not support your OS, and it isn't going to for a while. Here's why, and here's what actually moves the needle if you want that to change.
 
-### Why Doesn't the Builder Support non-Linux/Windows/Mac Natively?
+### Why it doesn't work
 
-There are two primary reasons why other platforms are not fully integrated into our automated builder at this time:
+The installer's entire job is to fetch an official upstream Tor Browser build, verify its signature, and install it. It doesn't compile anything. That means it can only ever support platforms the Tor Project itself ships binaries for, which today is Windows, macOS, and Linux. Nothing else.
 
-**1. It's either packaged for you.**
-The BSD philosophy revolves around centralized, highly curated package management systems (like FreeBSD's `pkg` utility and the Ports collection). Dedicated community maintainers already do the heavy lifting to patch and package the Tor Browser specifically for your system. Because BSD users typically rely on these native package managers, a third-party automated builder can easily conflict with your system's environment. 
+That's not a technical limitation I could patch around with more code. There's no FreeBSD binary, no Haiku binary, no SerenityOS or ReactOS binary sitting on Tor Project's servers for me to point the installer at. If it doesn't exist upstream, there's nothing to download and nothing to verify, and an installer whose whole purpose is "download and verify official releases" has nothing to do.
 
-**2. You have to compile it from source.**
-Unlike Windows, macOS, or Linux, there is no pre-built, ready-to-use release of the Tor Browser provided by upstream developers for  your platform. Because there is no official binary for our builder to download and configure, getting the Tor Browser on BSD requires compiling the entire browser directly from source code. This is a massive, resource-intensive process that falls far outside the scope of a lightweight installer.
+If your OS is FreeBSD or GhostBSD, your package manager already has something covered separately below.
 
-### The Official Stance on Alternative OSs
+### Why Tor Project only ships for the big three
 
-Unless Tor Project Inc releases those operating systems  as an official platform, BSDs will not be supported. I apologize in advance. 
+This isn't a mystery or a snub. Tor Browser is maintained by a small, chronically overworked team that runs largely on grant funding and volunteer time. They package for Windows, macOS, and Linux because that's where the overwhelming majority of their user base sits, and every additional platform they officially support is permanent ongoing cost: build infrastructure, sandboxing work, security patches, QA, and someone answering bug reports for it forever. Nobody on that team has spare capacity sitting around waiting for a reason to burn it on a platform with a handful of users. That's just resourcing reality, not a value judgment about FreeBSD or Haiku or anyone running them.
 
-I have profound respect for the alternative operating system  community and the shared focus on privacy and open-source software, but our tool relies entirely on pulling official, verified upstream releases. Without those binaries, the heavy lifting of source compilation must be left to the operating system's community maintainers.
+Which means the blocker isn't technical. It's that nobody has made the case to Tor Project that shipping for your platform is worth the ongoing maintenance cost.
 
-### What should you do instead?
+### What actually gets a new platform supported
 
-If you are on FreeBSD or GhostBSD, we highly recommend using the community-maintained packages rather than trying to compile from scratch yourself. You can usually find the Tor Browser in your package manager:
+If you want your OS to become an officially supported build target, the ask has to go to Tor Project, not to me — I have zero influence over their roadmap. Realistically, this looks less like a feature request and more like a pitch you'd bring to a resourcing meeting: prove there's a userbase big enough to justify the ongoing cost, and prove someone competent is willing to carry real work.
 
-```bash
-# Check for the package using pkg
+Things that move this forward:
+
+- **File it where it counts.** Tor Project tracks work on their GitLab (`gitlab.torproject.org`), not on this repo. A ticket here does nothing for you.
+- **Bring numbers, not vibes.** "A few of us want this" doesn't beat a maintenance-cost argument. Download counts from your OS's ports/package repo, forum threads, mailing list interest — anything that shows a real, counted audience rather than three people in a Discord.
+- **Show up with a build, not just a request.** If your platform's ports/package maintainers already build Tor Browser from source (FreeBSD's do), that's your strongest card — it proves the porting work is solvable and someone's already doing it. Point Tor Project at that existing packaging effort as evidence, and ideally get that maintainer directly into the conversation.
+- **Offer maintenance, not a one-time patch.** A build that lands once and then bitrots is worse than no build. If you're petitioning for official support, the pitch needs an answer to "who fixes this when it breaks in six months," because that's the actual cost being asked for.
+- **Loop in your OS's own community first.** Coordinated asks from an OS's dev team or package maintainers carry more weight than scattered individual requests. If FreeBSD's own maintainers formally ask Tor Project to collaborate on official support, that reads very differently than isolated bug reports.
+
+None of this is a fast process, and there's a real chance the answer stays "not enough demand to justify it" for a long time. That's the honest tradeoff of running a smaller platform: you get more control and less official support, and the way you get more official support is by making the cost-benefit case yourself to the people who'd have to maintain it.
+
+### What to do right now, today
+
+**FreeBSD / GhostBSD:** check the package manager first, it's usually already there:
+
+\`\`\`bash
+# Check whether it's already packaged
 pkg search tor-browser
 
-# Install via pkg (if available)
+# Install it if it is
 sudo pkg install tor-browser
-```
-See building for [Windows](./windows.md), [macOS](./macos.md), or [Linux](./linux.md) instead.
+\`\`\`
+
+If \`pkg\` doesn't have it, check the Ports collection directly — packages and ports aren't always in sync.
+
+**Any other alternative OS:** check your own package manager or ports tree the same way before assuming nothing exists. If there's genuinely no build anywhere, your options are building it from source yourself using your platform's own toolchain, or finding your OS's community channels and asking whether anyone's already solved this — a lot of these platforms have small but dedicated packaging communities that know things Tor Project doesn't.
+
+For anything else, see building for [Windows](./windows.md), [macOS](./macos.md), or [Linux](./linux.md).
