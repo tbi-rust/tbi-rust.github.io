@@ -436,8 +436,9 @@ blockquote {
 blockquote p:first-child { margin-top: 0; }
 blockquote p:last-child { margin-bottom: 0; }
 
-/* Font accent for lead-in text */
-blockquote > p:first-child > strong:first-child {
+/* Font accent for lead-in text — plain quotes only. Admonitions (below)
+   use their own .blockquote-tag-title element for the lead-in instead. */
+blockquote:not(.blockquote-tag) > p:first-child > strong:first-child {
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 600;
@@ -445,43 +446,71 @@ blockquote > p:first-child > strong:first-child {
 
 /* --------------------------------------------------------------------------
    Admonition / Callout Specific Colors
-   Matches mdbook and GitHub alert classes
+
+   mdBook's native admonitions (`> [!NOTE]`, `> [!WARNING]`, etc. — enabled
+   by default since mdBook 0.5, no preprocessor required) do NOT render as
+   `blockquote.note` or `.markdown-alert-note`. Checked against mdBook's own
+   renderer source (crates/mdbook-html/src/html/tree.rs +
+   admonitions.rs): the actual markup is
+
+     <blockquote class="blockquote-tag blockquote-tag-warning">
+       <p class="blockquote-tag-title"><svg>...</svg>Warning</p>
+       <p>...body...</p>
+     </blockquote>
+
+   Since `.note`/`.markdown-alert-*` never matched anything real, every
+   admonition fell through to the plain `blockquote` rule above — hence
+   the background always being --quote-bg blue regardless of type.
    -------------------------------------------------------------------------- */
 
+.blockquote-tag-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-weight: 700 !important;
+  font-family: var(--font-sans) !important;
+  font-style: normal !important;
+  margin: 0 0 6px 0 !important;
+}
+.blockquote-tag-title svg {
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
 /* NOTE: Blue */
-blockquote.note, 
-.markdown-alert-note {
+blockquote.blockquote-tag-note {
   background-color: rgba(9, 105, 218, 0.1) !important;
   border-left: 4px solid #0969da !important;
 }
+blockquote.blockquote-tag-note .blockquote-tag-title { color: #0969da !important; }
 
 /* TIP: Green */
-blockquote.tip, 
-.markdown-alert-tip {
+blockquote.blockquote-tag-tip {
   background-color: rgba(26, 127, 55, 0.1) !important;
   border-left: 4px solid #1a7f37 !important;
 }
+blockquote.blockquote-tag-tip .blockquote-tag-title { color: #1a7f37 !important; }
 
 /* IMPORTANT: Purple */
-blockquote.important, 
-.markdown-alert-important {
+blockquote.blockquote-tag-important {
   background-color: rgba(130, 80, 223, 0.1) !important;
   border-left: 4px solid #8250df !important;
 }
+blockquote.blockquote-tag-important .blockquote-tag-title { color: #8250df !important; }
 
 /* WARNING: Orange / Yellow */
-blockquote.warning, 
-.markdown-alert-warning {
+blockquote.blockquote-tag-warning {
   background-color: rgba(154, 103, 0, 0.1) !important;
   border-left: 4px solid #d4a72c !important;
 }
+blockquote.blockquote-tag-warning .blockquote-tag-title { color: #9a6700 !important; }
 
 /* CAUTION: Red */
-blockquote.caution, 
-.markdown-alert-caution {
+blockquote.blockquote-tag-caution {
   background-color: rgba(207, 34, 46, 0.1) !important;
   border-left: 4px solid #cf222e !important;
 }
+blockquote.blockquote-tag-caution .blockquote-tag-title { color: #cf222e !important; }
 /* ==========================================================================
    12. PREV/NEXT CHAPTER NAV
    ========================================================================== */
