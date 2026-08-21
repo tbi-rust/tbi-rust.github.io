@@ -1,5 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PlatformCards from "../components/PlatformCards.astro";
+import Icon from "../components/Icon.astro";
 ---
 
 <Layout title="Install" description="Build and run Tor Browser Installer from source.">
@@ -8,43 +10,35 @@ import Layout from "../layouts/Layout.astro";
       <span class="eyebrow">Get started</span>
       <h1>Installation</h1>
       
-      <Notice type="info" style="margin-top: 32px;">
+      <div class="notice">
         <p>
-          Installation steps have moved. Please visit the 
-          <a href="/docs">documentation page</a> for up-to-date instructions.
+          Installation steps have moved. Please see the <a href="/docs">documentation</a> for up-to-date instructions.
         </p>
-      </Notice>
+      </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  /* Page layout structural styles */
-  .section {
-    padding: 64px 0;
+  .notice {
+    margin-top: 24px;
+    padding: 20px 24px;
+    background: var(--app-purple-soft);
+    border: 1px solid var(--app-border);
+    border-radius: var(--radius-md);
+    max-width: 62ch;
   }
 
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px;
+  .notice p {
+    margin: 0;
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.5;
   }
 
-  .eyebrow {
-    display: inline-block;
-    font-size: 0.875rem;
+  .notice a {
+    color: var(--app-purple-deep);
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--app-purple-deep, #6b21a8);
-    margin-bottom: 8px;
-  }
-
-  h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--text, #111827);
-    margin: 0 0 16px 0;
+    text-decoration: underline;
   }
 </style>
