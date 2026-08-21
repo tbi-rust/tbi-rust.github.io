@@ -1,5 +1,5 @@
 [book]
-title = "Tor Browser Builder Docs"
+title = "Tor Browser Installer Docs"
 authors = ["Ribhav Revalli"]
 language = "en"
 [output.html]
