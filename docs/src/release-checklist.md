@@ -1,4 +1,4 @@
-# Release checklist
+j# Release checklist
 
 Steps for cutting an actual release, in order. Treat this as a literal
 checklist — copy it into the release PR or issue if that helps.
@@ -9,7 +9,7 @@ Update the version in **both** places it's declared — they're independent
 and nothing enforces they match:
 
 - `Cargo.toml` → `[package] version = "..."`
-- `main.rs` → `APP_VERSION` constant (shown in the About screen and sent
+- `app.rs` → `APP_VERSION` constant (shown in the About screen and sent
   as the HTTP User-Agent when talking to the Tor Project's release API)
 
 ## 2. Update the changelog

@@ -34,4 +34,4 @@ pkg search tor-browser
 # Install via pkg (if available)
 sudo pkg install tor-browser
 ```
-If you aren't, well...good luck.
+See building for [Windows](./windows.md), [macOS](./macos.md), or [Linux](./linux.md) instead.
