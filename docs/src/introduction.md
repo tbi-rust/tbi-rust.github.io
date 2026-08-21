@@ -3,7 +3,7 @@
 This book documents how to **build, package, cross-compile, and release**
 Tor Browser Installer — a cross-platform, native installer and launcher for
 Tor Browser, written in Rust with [egui](https://github.com/emilk/egui).
->![NOTE]
+>[!NOTE]
 > **This is a build guide, not a user manual.** If you just want to *run*
 > the app, grab a prebuilt binary from the
 > [Releases page](https://github.com/reality-prod/tbi-rust/releases) and
@@ -16,7 +16,7 @@ Tor Browser, written in Rust with [egui](https://github.com/emilk/egui).
 > **Not Supported OS**:
 > If you are on FreeBSD, GhostBSD, or any alternative OS please read [this](./building/bsd.md).
 
->![NOTE]
+> [!NOTE]
 > This guide is incomplete.
 >Expect changes revisions and updates to this guide.
 
