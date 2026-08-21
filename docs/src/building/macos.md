@@ -103,6 +103,6 @@ Macs. If you're distributing builds beyond your own machine, look at
 `codesign` and `xcrun notarytool` — both need an active Apple Developer
 account and are out of scope for this guide.
 
-Next: [Building on Linux](./building/linux.md), or skip to
+Next: [Building on Linux](./linux.md), or skip to
 [Building with GitHub Actions](../ci-github-actions.md) to have all three
 platforms built and packaged for you automatically.
