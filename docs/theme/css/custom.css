@@ -1,0 +1,477 @@
+/* ==========================================================================
+   Tor Browser Installer — build docs theme
+   Base palette from the project's supplied custom.css, rebuilt against
+   mdBook's actual DOM/variable names (mdBook != GitBook — close but not
+   identical) and extended with a dark companion, real font loading, and
+   the chrome mdBook itself renders (search, theme popup, scrollbar,
+   copy-code button, prev/next nav) that the original only partially covered.
+
+   Load order: mdBook includes this AFTER its own theme CSS via
+   `additional-css` in book.toml, so plain selectors already win — the
+   !important flags are kept only where mdBook's own rules use an #id
+   selector (higher specificity than a class) and would otherwise win.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap');
+
+/* ==========================================================================
+   1. TYPE TOKENS
+   ========================================================================== */
+:root {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  /* Used sparingly — first line of blockquotes/callouts, for a little
+     editorial warmth against all the monospace and UI sans everywhere else. */
+  --font-serif: 'Fraunces', Georgia, serif;
+}
+
+/* ==========================================================================
+   2. LIGHT THEME — the palette from the original file, mapped onto
+   mdBook's real CSS custom properties (defined in mdBook's own
+   theme/css/variables.css) so native chrome — search, theme popup,
+   scrollbar — reflects it too, not just the parts hand-restyled below.
+   ========================================================================== */
+.light {
+  font-family: var(--font-sans);
+
+  /* mdBook-native variables */
+  --bg: #ffffff;
+  --fg: #242a31;
+  --sidebar-bg: #f7f9fa;
+  --sidebar-fg: #3b454e;
+  --sidebar-non-existant: #b6bec6;
+  --sidebar-active: #2483d5;
+  --sidebar-spacer: #e6ebf1;
+  --scrollbar: #c9d1d8;
+  --icons: #6b7785;
+  --icons-hover: #2483d5;
+  --links: #2483d5;
+  --inline-code-color: #e02424;
+  --theme-popup-bg: #ffffff;
+  --theme-popup-border: #e6ebf1;
+  --theme-hover: #f0f4f8;
+  --quote-bg: #f0f7ff;
+  --quote-border: #2483d5;
+  --table-border-color: #e6ebf1;
+  --table-header-bg: #f8f9fa;
+  --table-alternate-bg: #fbfcfd;
+  --searchbar-border-color: #e6ebf1;
+  --searchbar-bg: #f7f9fa;
+  --searchbar-fg: #242a31;
+  --searchbar-shadow-color: #d7dee4;
+  --searchresults-header-fg: #6b7785;
+  --searchresults-border-color: #e6ebf1;
+  --searchresults-li-bg: #f0f7ff;
+  --search-mark-bg: #cfe6fb;
+
+  /* Extra tokens this stylesheet itself uses below */
+  --sidebar-active-bg: #e6f0fa;
+  --inline-code-bg: #f4f6f8;
+  --code-panel-bg: #f8f9fa;
+  --code-panel-border: #e6ebf1;
+  --divider: #e6ebf1;
+}
+
+/* ==========================================================================
+   3. DARK THEME (navy) — a genuine companion, not an afterthought.
+   book.toml sets preferred-dark-theme = "navy", so this is what most
+   people in dark mode actually see. Same hue relationships as the light
+   theme (same blue accent), inverted for a dark, slightly blue-tinted
+   background rather than pure black.
+   ========================================================================== */
+.navy {
+  font-family: var(--font-sans);
+
+  --bg: #0f1720;
+  --fg: #dbe2e8;
+  --sidebar-bg: #0b121a;
+  --sidebar-fg: #9aa7b3;
+  --sidebar-non-existant: #4b5661;
+  --sidebar-active: #5fb2ff;
+  --sidebar-spacer: #1e2933;
+  --scrollbar: #2a3742;
+  --icons: #7c8b98;
+  --icons-hover: #5fb2ff;
+  --links: #5fb2ff;
+  --inline-code-color: #ff8080;
+  --theme-popup-bg: #16212c;
+  --theme-popup-border: #263340;
+  --theme-hover: #1c2732;
+  --quote-bg: #132433;
+  --quote-border: #5fb2ff;
+  --table-border-color: #263340;
+  --table-header-bg: #16212c;
+  --table-alternate-bg: #131d26;
+  --searchbar-border-color: #263340;
+  --searchbar-bg: #16212c;
+  --searchbar-fg: #dbe2e8;
+  --searchbar-shadow-color: #0a1119;
+  --searchresults-header-fg: #7c8b98;
+  --searchresults-border-color: #263340;
+  --searchresults-li-bg: #132433;
+  --search-mark-bg: #1d4566;
+
+  --sidebar-active-bg: #16283a;
+  --inline-code-bg: #16212c;
+  --code-panel-bg: #101922;
+  --code-panel-border: #263340;
+  --divider: #263340;
+}
+
+/* ==========================================================================
+   4. BASE
+   ========================================================================== */
+body, .page {
+  background-color: var(--bg) !important;
+  color: var(--fg) !important;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: var(--search-mark-bg);
+  color: var(--fg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+
+/* Custom scrollbar (WebKit/Blink) matching the active theme's --scrollbar token */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar);
+  border-radius: 8px;
+  border: 2px solid var(--bg);
+}
+
+/* ==========================================================================
+   5. SIDEBAR
+   ========================================================================== */
+.sidebar {
+  background-color: var(--sidebar-bg) !important;
+  border-right: 1px solid var(--divider) !important;
+  box-shadow: none !important;
+  font-family: var(--font-sans);
+}
+
+.sidebar-scrollbox { box-shadow: none !important; padding-top: 8px !important; }
+
+.sidebar .sidebar-scrollbox > .chapter { padding-bottom: 24px; }
+
+/* Part titles ("Getting set up", "Building", "Releasing", "Help") —
+   mdBook renders unlinked SUMMARY.md headings as <li class="part-title">,
+   not the ".spacer" class the original file guessed at. */
+.sidebar .chapter .part-title {
+  color: var(--sidebar-non-existant) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  padding: 16px 20px 6px !important;
+  margin: 0 !important;
+}
+
+/* Nav links */
+.sidebar a, .sidebar .chapter li a {
+  color: var(--sidebar-fg) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  padding: 7px 12px !important;
+  border-radius: 6px !important;
+  margin: 1px 8px !important;
+  display: block !important;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sidebar a:hover {
+  background-color: var(--theme-hover) !important;
+  color: var(--sidebar-active) !important;
+  text-decoration: none !important;
+}
+
+.sidebar li.chapter-item a.active,
+.sidebar a.active {
+  background-color: var(--sidebar-active-bg) !important;
+  color: var(--sidebar-active) !important;
+  font-weight: 600 !important;
+}
+
+/* Nested chapters (building/macos.md etc.) get a slightly indented,
+   slightly smaller treatment so the hierarchy reads at a glance. */
+.sidebar .chapter li.chapter-item ol.section li a {
+  font-size: 13px !important;
+  padding-left: 20px !important;
+}
+
+.sidebar-resize-handle {
+  background-color: transparent;
+}
+.sidebar-resize-handle:hover,
+.sidebar-resize-indicator {
+  background-color: var(--sidebar-active) !important;
+  opacity: 0.3;
+}
+
+/* ==========================================================================
+   6. TOP MENU BAR
+   ========================================================================== */
+#menu-bar, .menu-bar {
+  background-color: color-mix(in srgb, var(--bg) 85%, transparent) !important;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--divider) !important;
+  box-shadow: none !important;
+}
+
+.menu-bar i, .menu-bar button, .icon-button {
+  color: var(--icons) !important;
+  transition: color 0.15s ease;
+}
+.menu-bar i:hover, .menu-bar button:hover, .icon-button:hover {
+  color: var(--icons-hover) !important;
+}
+
+#menu-bar .menu-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--fg) !important;
+}
+
+/* Theme picker popup */
+.theme-popup {
+  background-color: var(--theme-popup-bg) !important;
+  border: 1px solid var(--theme-popup-border) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.25) !important;
+  overflow: hidden;
+}
+.theme-popup .theme:hover, .theme-popup button:hover {
+  background-color: var(--theme-hover) !important;
+  color: var(--sidebar-active) !important;
+}
+
+/* ==========================================================================
+   7. SEARCH
+   ========================================================================== */
+#searchbar {
+  background-color: var(--searchbar-bg) !important;
+  color: var(--searchbar-fg) !important;
+  border: 1px solid var(--searchbar-border-color) !important;
+  border-radius: 8px !important;
+  font-family: var(--font-sans);
+  box-shadow: none !important;
+}
+#searchbar:focus {
+  border-color: var(--sidebar-active) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sidebar-active) 20%, transparent) !important;
+}
+
+.searchresults-header {
+  color: var(--searchresults-header-fg) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+#searchresults li {
+  border-bottom: 1px solid var(--searchresults-border-color) !important;
+  border-radius: 6px;
+  padding: 8px 10px !important;
+}
+#searchresults li.focus, #searchresults li:hover {
+  background-color: var(--searchresults-li-bg) !important;
+}
+#searchresults .teaser mark {
+  background-color: var(--search-mark-bg) !important;
+  color: inherit !important;
+  border-radius: 2px;
+}
+
+/* ==========================================================================
+   8. CONTENT LAYOUT & TYPOGRAPHY
+   ========================================================================== */
+.content main {
+  max-width: 760px !important;
+  padding: 2.5rem clamp(1.25rem, 5vw, 4rem) !important;
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+  font-family: var(--font-sans);
+}
+
+.content main p, .content main li { color: var(--fg); }
+
+h1, h2, h3, h4, h5 {
+  color: var(--fg) !important;
+  font-family: var(--font-sans);
+  font-weight: 700 !important;
+  letter-spacing: -0.01em;
+  margin-top: 2.2em !important;
+  margin-bottom: 0.7em !important;
+  scroll-margin-top: 80px; /* so anchor-jump doesn't hide under the sticky menu bar */
+}
+.content main > h1:first-child { margin-top: 0.4em !important; }
+
+h1 { font-size: 2.15rem !important; border-bottom: none !important; }
+h2 { font-size: 1.55rem !important; border-bottom: 1px solid var(--divider) !important; padding-bottom: 0.35rem !important; }
+h3 { font-size: 1.25rem !important; }
+h4 { font-size: 1.05rem !important; }
+
+/* mdBook auto-wraps headings in an anchor (<a class="header">) — turn
+   that into a visible "#" that appears on hover, common in doc sites,
+   instead of leaving it invisible-but-clickable. */
+h1 a.header, h2 a.header, h3 a.header, h4 a.header {
+  color: inherit !important;
+  text-decoration: none !important;
+  position: relative;
+}
+h1 a.header::after, h2 a.header::after, h3 a.header::after, h4 a.header::after {
+  content: "#";
+  position: absolute;
+  left: -1.1em;
+  color: var(--sidebar-active);
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  font-weight: 600;
+}
+h1:hover a.header::after, h2:hover a.header::after,
+h3:hover a.header::after, h4:hover a.header::after { opacity: 0.6; }
+
+a:not(.header):not(.icon-button) { color: var(--links); text-decoration: none; }
+a:not(.header):not(.icon-button):hover { text-decoration: underline; }
+
+.content main a:focus-visible,
+.sidebar a:focus-visible,
+#searchbar:focus-visible {
+  outline: 2px solid var(--sidebar-active);
+  outline-offset: 2px;
+}
+
+hr { border: none; border-top: 1px solid var(--divider); margin: 2.5rem 0; }
+
+/* ==========================================================================
+   9. CODE
+   ========================================================================== */
+code:not(pre code) {
+  font-family: var(--font-mono) !important;
+  background-color: var(--inline-code-bg) !important;
+  color: var(--inline-code-color) !important;
+  padding: 0.2em 0.4em !important;
+  border-radius: 4px !important;
+  font-size: 85% !important;
+  font-feature-settings: "calt" 1;
+}
+
+pre {
+  background-color: var(--code-panel-bg) !important;
+  border: 1px solid var(--code-panel-border) !important;
+  border-radius: 8px !important;
+  padding: 16px !important;
+  box-shadow: none !important;
+  position: relative;
+}
+pre code {
+  font-family: var(--font-mono) !important;
+  font-size: 13.5px !important;
+  line-height: 1.6 !important;
+  font-feature-settings: "calt" 1, "liga" 1; /* JetBrains Mono ligatures: ->, =>, != etc. */
+  background: transparent !important;
+}
+
+/* mdBook's built-in copy-to-clipboard button on code blocks */
+pre > .buttons {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+pre:hover > .buttons { opacity: 1; }
+pre > .buttons button {
+  background-color: var(--code-panel-bg) !important;
+  border: 1px solid var(--code-panel-border) !important;
+  color: var(--icons) !important;
+  border-radius: 5px !important;
+}
+pre > .buttons button:hover {
+  color: var(--sidebar-active) !important;
+  border-color: var(--sidebar-active) !important;
+}
+
+/* ==========================================================================
+   10. TABLES
+   ========================================================================== */
+table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin: 20px 0 !important;
+  font-size: 0.94em;
+}
+table th {
+  background-color: var(--table-header-bg) !important;
+  font-weight: 600 !important;
+  border-bottom: 2px solid var(--table-border-color) !important;
+}
+table td, table th {
+  padding: 10px 16px !important;
+  border: 1px solid var(--table-border-color) !important;
+  text-align: left;
+}
+table tr:nth-child(even) td { background-color: var(--table-alternate-bg) !important; }
+
+/* ==========================================================================
+   11. BLOCKQUOTES / CALLOUTS
+   ========================================================================== */
+blockquote {
+  background-color: var(--quote-bg) !important;
+  border-left: 4px solid var(--quote-border) !important;
+  color: var(--fg) !important;
+  margin: 1.5rem 0 !important;
+  padding: 14px 20px !important;
+  border-radius: 0 8px 8px 0;
+  font-family: var(--font-sans);
+}
+blockquote p:first-child { margin-top: 0; }
+blockquote p:last-child { margin-bottom: 0; }
+/* A blockquote that opens with a bold "**Note:**"-style lead-in reads a
+   touch more like a designed callout with a serif accent on that lead word. */
+blockquote > p:first-child > strong:first-child {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   12. PREV/NEXT CHAPTER NAV
+   ========================================================================== */
+.nav-chapters {
+  font-family: var(--font-sans);
+  border-top: 1px solid var(--divider);
+}
+.nav-chapters .nav-chapter {
+  color: var(--fg) !important;
+  transition: background-color 0.15s ease;
+}
+.nav-chapters .nav-chapter:hover {
+  background-color: var(--theme-hover) !important;
+  text-decoration: none !important;
+}
+.nav-chapters i { color: var(--icons); }
+
+/* ==========================================================================
+   13. RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px) {
+  .content main { padding: 1.75rem 1.1rem !important; }
+  h1 { font-size: 1.75rem !important; }
+  h2 { font-size: 1.35rem !important; }
+}
+
+/* ==========================================================================
+   14. PRINT
+   ========================================================================== */
+@media print {
+  .sidebar, #menu-bar, .nav-chapters { display: none !important; }
+  .content main { max-width: 100% !important; padding: 0 !important; }
+  pre { border: 1px solid #ccc !important; }
+  a { color: #000 !important; text-decoration: underline; }
+}

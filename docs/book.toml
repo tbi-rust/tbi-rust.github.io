@@ -1,0 +1,8 @@
+[book]
+title = "Tor Browser Builder Docs"
+authors = ["Ribhav Revalli"]
+language = "en"
+[output.html]
+theme = "theme"
+additional-css = ["theme/css/custom.css"]
+
