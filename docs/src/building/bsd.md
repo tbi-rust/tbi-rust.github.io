@@ -39,15 +39,15 @@ None of this is a fast process, and there's a real chance the answer stays "not 
 
 **FreeBSD / GhostBSD:** check the package manager first, it's usually already there:
 
-\`\`\`bash
+```
 # Check whether it's already packaged
 pkg search tor-browser
 
 # Install it if it is
 sudo pkg install tor-browser
-\`\`\`
+```
 
-If \`pkg\` doesn't have it, check the Ports collection directly — packages and ports aren't always in sync.
+If `pkg` doesn't have it, check the Ports collection directly — packages and ports aren't always in sync.
 
 **Any other alternative OS:** check your own package manager or ports tree the same way before assuming nothing exists. If there's genuinely no build anywhere, your options are building it from source yourself using your platform's own toolchain, or finding your OS's community channels and asking whether anyone's already solved this — a lot of these platforms have small but dedicated packaging communities that know things Tor Project doesn't.
 
