@@ -13,9 +13,8 @@ Tor Browser, written in Rust with [egui](https://github.com/emilk/egui).
 
 
 >[!WARNING]
-> If you are on FreeBSD, GhostBSD or any non Windows,
-> Mac, 
->or Linux operating system please read [this](./building/bsd.md).
+> **Not Supported OS**:
+> If you are on FreeBSD, GhostBSD, or any alternative OS please read [this](./building/bsd.md).
 ## Who this is for
 
 - **End users** who'd rather build from source than trust a prebuilt binary
