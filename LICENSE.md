@@ -202,4 +202,4 @@ of your licenses.
 
 ---
 
-Required Notice: Copyright [Year] [Your Name or Organization Name] ([your URL])
+Required Notice: Copyright 2026 Ribhav Revalli
