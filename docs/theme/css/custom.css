@@ -18,11 +18,9 @@
    1. TYPE TOKENS
    ========================================================================== */
 :root {
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-sans: 'JetBrains Mono', ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   --font-mono: 'JetBrains Mono', ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  /* Used sparingly — first line of blockquotes/callouts, for a little
-     editorial warmth against all the monospace and UI sans everywhere else. */
-  --font-serif: 'Fraunces', Georgia, serif;
+  --font-serif: 'JetBrains Mono', ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
 
 /* ==========================================================================
